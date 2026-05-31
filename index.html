@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accension Leaderboard</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/j5B1nLhX/Silver-Arrow-Emblem-with-Wings-removebg-preview.png">
+    <style>
+        /* Black and White Theme */
+        :root {
+            --bg-color: #000000;
+            --card-bg: #111111;
+            --hover-bg: #1f1f1f;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --border-color: #333333;
+            
+            /* Rank Colors */
+            --rank-1: #ffffff;
+            --rank-2: #cccccc;
+            --rank-3: #777777;
+            --rank-other: #222222;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 20px;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Header Section --- */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 15px; 
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .site-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain; 
+            filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.2));
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(255,255,255,0.1)); }
+            50% { filter: drop-shadow(0 0 15px rgba(255,255,255,0.4)) drop-shadow(0 0 30px rgba(255,255,255,0.1)); }
+        }
+
+        .site-title {
+            font-size: 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(180deg, #ffffff 0%, #b0b0b0 50%, #7a7a7a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        /* --- Category Tabs --- */
+        .tabs {
+            display: flex;
+            gap: 12px;
+            background-color: var(--card-bg);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+
+        .tab {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px; 
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #fff;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateX(-50%);
+        }
+
+        .tab.active::after, .tab:hover::after {
+            width: 60%;
+        }
+
+        .tab:active {
+            transform: scale(0.95);
+        }
+
+        .tab img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+            mix-blend-mode: screen;
+        }
+
+        .tab.active, .tab:hover {
+            background-color: var(--hover-bg);
+            color: var(--text-main);
+        }
+
+        .tab.active img, .tab:hover img {
+            opacity: 1;
+        }
+
+        /* --- Premium Animations --- */
+        @keyframes fadeSlideIn {
+            0% { opacity: 0; transform: translateY(20px) scale(0.97); filter: blur(4px); }
+            60% { opacity: 1; filter: blur(0); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+
+        @keyframes fadeSlideOut {
+            0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+            100% { opacity: 0; transform: translateY(-15px) scale(0.98); filter: blur(4px); }
+        }
+
+        @keyframes rowEntrance {
+            0% { opacity: 0; transform: translateX(-30px) scale(0.95); }
+            60% { transform: translateX(5px) scale(1.01); }
+            100% { opacity: 1; transform: translateX(0) scale(1); }
+        }
+
+        @keyframes colDrop {
+            0% { opacity: 0; transform: translateY(-40px) scale(0.9); }
+            70% { transform: translateY(5px) scale(1.02); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 5px rgba(255,255,255,0.05); }
+            50% { box-shadow: 0 0 15px rgba(255,255,255,0.1); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 8px rgba(255,255,255,0.6),
+                    0 0 20px rgba(255,255,255,0.3),
+                    0 0 40px rgba(255,255,255,0.1),
+                    inset 0 0 8px rgba(255,255,255,0.05);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 14px rgba(255,255,255,0.9),
+                    0 0 35px rgba(255,255,255,0.45),
+                    0 0 60px rgba(255,255,255,0.15),
+                    inset 0 0 12px rgba(255,255,255,0.08);
+            }
+        }
+
+        @keyframes neonBob {
+            0%, 100% { transform: translateY(-5px) scale(1.025); }
+            50%      { transform: translateY(-2px) scale(1.015); }
+        }
+
+        @keyframes neonPulseLight {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 4px rgba(255,255,255,0.4),
+                    0 0 10px rgba(255,255,255,0.2),
+                    0 0 20px rgba(255,255,255,0.05);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 8px rgba(255,255,255,0.7),
+                    0 0 20px rgba(255,255,255,0.3),
+                    0 0 35px rgba(255,255,255,0.1);
+            }
+        }
+
+        @keyframes neonBobLight {
+            0%, 100% { transform: translateY(-3px) scale(1.015); }
+            50%      { transform: translateY(-1px) scale(1.005); }
+        }
+
+        .fade-in {
+            animation: fadeSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .fade-out {
+            animation: fadeSlideOut 0.25s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+        }
+
+        /* --- Overall View Container --- */
+        #overallView {
+            display: block;
+        }
+
+        .leaderboard-header {
+            display: grid;
+            grid-template-columns: 60px 2.5fr 1fr 4fr;
+            padding: 10px 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .player-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .player-row {
+            display: grid;
+            grid-template-columns: 60px 2.5fr 1fr 4fr;
+            align-items: center;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 10px;
+            border: 1px solid transparent;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                        background-color 0.3s ease,
+                        border-color 0.4s ease,
+                        box-shadow 0.4s ease;
+            opacity: 0;
+            animation: rowEntrance 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .player-row.entered {
+            opacity: 1;
+            animation: none;
+        }
+
+        .player-row.entered:hover {
+            transform: translateY(-5px) scale(1.025);
+            background-color: var(--hover-bg);
+            border-color: #ffffff;
+            animation: neonPulse 2s ease-in-out infinite;
+        }
+
+        .player-row.bobbing {
+            animation: neonBob 2s ease-in-out infinite,
+                       neonPulse 2s ease-in-out infinite !important;
+        }
+
+        /* Rank & Player Info */
+        .rank-box {
+            font-size: 22px;
+            font-weight: 900;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            border: 1px solid transparent;
+        }
+
+        .rank-1 { background-color: #2a2410; color: #d1b054; border-color: #635223; box-shadow: 0 0 10px rgba(209,176,84,0.1); animation: glowPulse 2s ease-in-out infinite; }
+        .rank-2 { background-color: #1a1f24; color: #cddbe2; border-color: #5d6d77; box-shadow: 0 0 10px rgba(205,219,226,0.1); animation: glowPulse 2.5s ease-in-out infinite; }
+        .rank-3 { background-color: #2a1b12; color: #b8825c; border-color: #6b452b; box-shadow: 0 0 10px rgba(184,130,92,0.1); animation: glowPulse 3s ease-in-out infinite; }
+        .rank-other { background-color: #151515; color: #666; font-size: 20px; border-color: #333; }
+
+        .player-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        .name-wrapper h3 {
+            font-size: 18px;
+            margin-bottom: 2px;
+            color: var(--text-main);
+        }
+
+        .title {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        .title span {
+            color: var(--text-main);
+            font-weight: bold;
+        }
+
+        .region {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            background-color: #222;
+            color: #ccc;
+            border: 1px solid #444;
+        }
+
+        /* --- Overall Tiers Display Fixes (CÁC Ô BẰNG NHAU 100%) --- */
+        .tiers {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tier-item {
+            width: 75px; 
+            height: 65px; 
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: #151515;
+            border-radius: 8px;
+            border: 1px solid #2a2a2a;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .tier-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ccc;
+            white-space: nowrap;
+        }
+
+        .tier-title img {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            mix-blend-mode: screen;
+            border-radius: 50%;
+            filter: contrast(1.4) brightness(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
+        }
+
+        .tier-item:hover .tier-title img {
+            transform: scale(1.4) translateY(-2px);
+            animation: iconWiggle 0.6s ease-in-out infinite;
+            filter: contrast(1.4) brightness(1.2);
+        }
+
+        .tier-badge {
+            font-size: 13px;
+            font-weight: bold;
+            padding: 2px 14px;
+            border-radius: 4px;
+            background: #222;
+            color: #fff;
+            border: 1px solid #444;
+            transition: all 0.3s ease;
+        }
+        
+        .tier-badge.top-1 { background: #2a2410; color: #d1b054; border-color: #635223; box-shadow: 0 0 5px rgba(209,176,84,0.1); }
+        .tier-badge.top-2 { background: #1f1f1f; color: #a3a3a3; border-color: #4a4a4a; box-shadow: 0 0 5px rgba(163,163,163,0.1); }
+        .tier-badge.top-3 { background: #2a1b12; color: #b8825c; border-color: #6b452b; box-shadow: 0 0 5px rgba(184,130,92,0.1); }
+
+        .tier-item:hover .tier-badge {
+            border-color: rgba(255,255,255,0.4);
+            box-shadow: 0 0 8px rgba(255,255,255,0.2);
+        }
+
+        /* --- Delete Button (Nút xóa) --- */
+        .delete-btn {
+            background: #1a0000;
+            color: #ff4a4a;
+            border: 1px solid #3a0000;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: 0.2s;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .delete-btn:hover {
+            background-color: #ff4a4a;
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        /* --- BOARD VIEW (TIER COLUMNS) --- */
+        #boardView {
+            display: none;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .board-col {
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 300px;
+            opacity: 0;
+            animation: colDrop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .board-col:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .board-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 900;
+            border-radius: 10px 10px 0 0;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .board-header img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            mix-blend-mode: screen;
+        }
+
+        .col-header-1 { background: linear-gradient(180deg, #332b00 0%, var(--card-bg) 100%); color: #ffb700; border-bottom: 2px solid #ffb700; }
+        .col-header-2 { background: linear-gradient(180deg, #1c2730 0%, var(--card-bg) 100%); color: #cddbe2; border-bottom: 2px solid #5d6d77; }
+        .col-header-3 { background: linear-gradient(180deg, #331a00 0%, var(--card-bg) 100%); color: #cd7f32; border-bottom: 2px solid #cd7f32; }
+        .col-header-4, .col-header-5 { background: #151515; color: #666666; border-bottom: 2px solid #333; }
+
+        .board-players-container {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .board-player-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            background: #1a1a1a;
+            border-radius: 6px;
+            border: 1px solid #333;
+            position: relative;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                        background-color 0.3s ease,
+                        border-color 0.4s ease,
+                        box-shadow 0.4s ease;
+        }
+        
+        .board-player-card:hover {
+            transform: translateY(-3px) scale(1.015);
+            background: #252525;
+            border-color: rgba(255,255,255,0.6);
+            animation: neonPulseLight 2s ease-in-out infinite;
+        }
+
+        .board-player-card.bobbing {
+            animation: neonBobLight 2s ease-in-out infinite,
+                       neonPulseLight 2s ease-in-out infinite !important;
+        }
+
+        .board-player-card .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+        }
+
+        .board-player-card .name {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--text-main);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        /* --- Delete UI removed --- */
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 768px) {
+            .leaderboard-header {
+                display: none; /* Ẩn header ở mobile vì layout chuyển sang dạng thẻ */
+            }
+            
+            .player-row {
+                display: flex;
+                flex-wrap: wrap;
+                padding: 15px;
+                position: relative;
+                gap: 15px 10px;
+                align-items: center;
+            }
+
+            .player-row > div:nth-child(1) { /* rank-box */
+                flex: 0 0 auto;
+            }
+
+            .player-row > div:nth-child(2) { /* player-info */
+                flex: 1;
+                margin-right: 90px; /* Khoảng trống cho Region và Nút xoá */
+                min-width: 0;
+            }
+
+            .player-row > div:nth-child(3) { /* Region */
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+
+            .player-row > div:nth-child(4) { /* Tiers */
+                width: 100%;
+                margin-top: 5px;
+            }
+            
+            .tiers {
+                justify-content: center;
+            }
+
+            /* Scroll ngang cho Board View */
+            #boardView {
+                display: flex;
+                overflow-x: auto;
+                padding-bottom: 15px;
+                gap: 15px;
+                scroll-snap-type: x mandatory;
+            }
+            
+            .board-col {
+                min-width: 280px;
+                flex: 0 0 auto;
+                scroll-snap-align: start;
+            }
+
+            /* Scroll ngang cho Tabs */
+            #categoryTabs {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 5px;
+            }
+
+            .tab {
+                flex: 0 0 auto;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- Premium Footer --- */
+        .footer-stats {
+            margin-top: 50px;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            background: linear-gradient(180deg, transparent, rgba(15, 15, 15, 0.8));
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .footer-stats-glow {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 100px;
+            background: rgba(18, 143, 235, 0.2);
+            filter: blur(50px);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(90deg, #fff, #a0d8ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.1), transparent);
+            z-index: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-stats { gap: 20px; flex-direction: column; padding: 40px 20px; }
+            .stat-divider { width: 100%; height: 1px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent); }
+        }
+
+        /* --- Modal Profile --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        .modal-content {
+            background: #0f0f0f;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 0 25px rgba(255,255,255,0.1), inset 0 0 10px rgba(255,255,255,0.02);
+            border: 1px solid #333;
+            color: #fff;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #222;
+            color: #ccc;
+            border: 1px solid #333;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.2s;
+        }
+        .modal-close:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        .modal-header-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .modal-header-profile img.avatar-large {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 2px solid #444;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+        .modal-header-profile h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+        .modal-title-badge {
+            background: #1a1a1a;
+            color: #fff;
+            border: 1px solid #444;
+            box-shadow: 0 0 8px rgba(255,255,255,0.1);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .modal-region {
+            color: #888;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-transform: capitalize;
+        }
+        .modal-namemc-btn {
+            background: #222;
+            color: #ccc;
+            border: 1px solid #333;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        .modal-namemc-btn:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 10px rgba(255,255,255,0.4);
+        }
+        .modal-section {
+            margin-bottom: 20px;
+        }
+        .modal-section-title {
+            color: #aaa;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .modal-overall-box {
+            background: #151515;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .modal-rank {
+            font-size: 32px;
+            font-weight: 900;
+            font-style: italic;
+            border-right: 1px solid #333;
+            padding-right: 15px;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+        .modal-overall-text {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .modal-overall-text span {
+            color: #888;
+            font-weight: normal;
+            font-size: 16px;
+        }
+        .modal-tiers-grid {
+            background: #151515;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .modal-tier-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        @keyframes iconWiggle {
+            0%, 100% { transform: scale(1.15) translateY(-3px) rotate(0deg); }
+            25% { transform: scale(1.15) translateY(-3px) rotate(8deg); }
+            75% { transform: scale(1.15) translateY(-3px) rotate(-8deg); }
+        }
+        .modal-tier-icon img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            filter: contrast(1.4) brightness(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
+        }
+        .modal-tier-icon:hover img {
+            transform: scale(1.15) translateY(-3px);
+            animation: iconWiggle 0.6s ease-in-out infinite;
+            filter: contrast(1.4) brightness(1.2);
+        }
+        @keyframes neonBlinkTwice {
+            0%, 100% { border-color: #333; box-shadow: none; background: transparent; }
+            50% { 
+                border-color: #fff; 
+                background: #252525;
+                box-shadow: 0 0 15px rgba(255,255,255,1), 0 0 30px rgba(255,255,255,0.5); 
+            }
+        }
+        .neon-blink {
+            animation: neonBlinkTwice 0.6s ease-in-out 2 !important; 
+        }
+        .modal-tier-icon .badge {
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #222;
+            color: #fff;
+            border: 1px solid #444;
+        }
+        .modal-tier-icon .badge.top-1 { background: #2a2410; color: #d1b054; border-color: #635223; box-shadow: 0 0 5px rgba(209,176,84,0.1); }
+        .modal-tier-icon .badge.top-2 { background: #1f1f1f; color: #a3a3a3; border-color: #4a4a4a; box-shadow: 0 0 5px rgba(163,163,163,0.1); }
+        .modal-tier-icon .badge.top-3 { background: #2a1b12; color: #b8825c; border-color: #6b452b; box-shadow: 0 0 5px rgba(184,130,92,0.1); }
+    </style>
+</head>
+<body>
+
+<!-- Player Profile Modal -->
+<div id="playerModal" class="modal-overlay" onclick="if(event.target===this) closePlayerProfile()">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closePlayerProfile()">×</button>
+        
+        <div class="modal-header-profile">
+            <img id="modalAvatar" class="avatar-large" src="" alt="avatar">
+            <h2 id="modalName">Name</h2>
+            <div id="modalTitle" class="modal-title-badge">❖ Title</div>
+            <div id="modalRegion" class="modal-region">Region</div>
+            <a id="modalNamemc" href="#" target="_blank" class="modal-namemc-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="9" y2="15"></line><line x1="15" y1="9" x2="15" y2="15"></line></svg> NameMC
+            </a>
+        </div>
+
+        <div class="modal-section">
+            <div class="modal-section-title">POSITION</div>
+            <div class="modal-overall-box">
+                <span id="modalOverallRank" class="modal-rank">1.</span>
+                <span class="modal-overall-text">
+                    <img src="https://i.postimg.cc/Qxw2KYfG/overall.jpg" alt="overall" style="width:24px;height:24px;border-radius:50%;vertical-align:middle;mix-blend-mode:screen;margin-right:6px;box-shadow: 0 0 10px rgba(255,255,255,0.2);"> 
+                    OVERALL <span id="modalOverallPoints">(0 points)</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="modal-section">
+            <div class="modal-section-title">POSITIONS</div>
+            <div id="modalTiers" class="modal-tiers-grid">
+                <!-- tier icons will be injected here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="header">
+        <div onclick="location.reload()" style="cursor: pointer; display: flex; align-items: center; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+            <img src="https://i.postimg.cc/j5B1nLhX/Silver-Arrow-Emblem-with-Wings-removebg-preview.png" alt="Logo" class="site-logo">
+            <div class="site-title">ACCENSION LEADERBOARD</div>
+        </div>
+    </div>
+
+    <div class="tabs" id="categoryTabs">
+        </div>
+
+    <div id="overallView">
+        <div class="leaderboard-header">
+            <div>#</div>
+            <div>PLAYER</div>
+            <div>REGION</div>
+            <div>POSITIONS</div>
+        </div>
+        <div class="player-list" id="playerList">
+            <div style="text-align:center; color:#888; padding:40px;">Đang tải dữ liệu...</div>
+            </div>
+    </div>
+
+    <div id="boardView">
+        </div>
+
+    <div class="footer-stats">
+        <div class="footer-stats-glow"></div>
+        <div class="stat-item">
+            <span class="stat-value" id="statTotalPlayers">0</span>
+            <span class="stat-label">TRACKED PLAYERS</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-value" id="statTotalPlacements">0</span>
+            <span class="stat-label">TOTAL PLACEMENTS</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span class="stat-value" id="statTopScore">0</span>
+            <span class="stat-label">HIGHEST SCORE</span>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+    // Image URLs from postimg.cc
+    const IMG = {
+        overall: 'https://i.postimg.cc/Qxw2KYfG/overall.jpg',
+        ltms:    'https://i.postimg.cc/MT6NJCpf/2v2.jpg',
+        sword:   'https://i.postimg.cc/fykPJYXN/sword.jpg',
+        axe:     'https://i.postimg.cc/ZYDgXDtT/axe.jpg',
+        mace:    'https://i.postimg.cc/wTCrjyjZ/mace.jpg',
+        vanilla: 'https://i.postimg.cc/YCQsGr4V/vanilla.jpg',
+        uhc:     'https://i.postimg.cc/RFps5qYp/uhc.jpg',
+        pot:     'https://i.postimg.cc/prgsr4RB/pot.jpg',
+        nethop:  'https://i.postimg.cc/28ZHMkxR/nethop.jpg',
+        smp:     'https://i.postimg.cc/Jz3p7pgP/smp.jpg',
+        tier1:   'https://i.postimg.cc/Qxw2KYfG/overall.jpg',
+        tier2:   'https://i.postimg.cc/7PFvfQBj/tier-2.jpg',
+        tier3:   'https://i.postimg.cc/d1hX08Gq/tier-3.jpg',
+    };
+
+    const categories = [
+        { id: 'sword',   icon: IMG.sword,   name: 'Sword' },
+        { id: 'axe',     icon: IMG.axe,     name: 'Axe' },
+        { id: 'mace',    icon: IMG.mace,    name: 'Mace' },
+        { id: 'vanilla', icon: IMG.vanilla, name: 'Vanilla' },
+        { id: 'uhc',     icon: IMG.uhc,     name: 'UHC' },
+        { id: 'pot',     icon: IMG.pot,     name: 'Pot' },
+        { id: 'nethop',  icon: IMG.nethop,  name: 'NethOP' },
+        { id: 'smp',     icon: IMG.smp,     name: 'SMP' }
+    ];
+
+    // Tạo HTML cho menu Tabs
+    const tabsContainer = document.getElementById('categoryTabs');
+    tabsContainer.innerHTML = `<div class="tab active" data-target="overall"><img src="${IMG.overall}" alt="Overall"> Overall</div>`;
+    
+    categories.forEach(cat => {
+        tabsContainer.innerHTML += `<div class="tab" data-target="${cat.id}"><img src="${cat.icon}" alt="${cat.name}"> ${cat.name}</div>`;
+    });
+
+    let currentActiveTab = 'overall';
+
+    // Bảng điểm theo position
+    const POSITION_POINTS = { 1: 10, 2: 7, 3: 5, 4: 3, 5: 1 };
+
+    // Tính tổng điểm từ stats
+    function calcPoints(stats) {
+        let total = 0;
+        categories.forEach(cat => {
+            const pos = stats[cat.id];
+            if (pos && POSITION_POINTS[pos] !== undefined) {
+                total += POSITION_POINTS[pos];
+            }
+        });
+        return total;
+    }
+
+    // Xác định title dựa trên điểm
+    function getTitle(points) {
+        if (points >= 50) return 'Combat Master';
+        if (points >= 30) return 'Combat Ace';
+        if (points >= 15) return 'Combat Specialist';
+        return 'Normal';
+    }
+
+    // --- Firebase Setup ---
+    const firebaseConfig = {
+        apiKey: 'AIzaSyDOJq7SNRIMDHY8p1R8wbmjjj89-FpP4GE',
+        databaseURL: 'https://accension-leaderboard-default-rtdb.asia-southeast1.firebasedatabase.app/'
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const playersRef = db.ref('players');
+
+    // Data mặc định
+    const defaultPlayers = [
+        { name: "ItzRealMe", region: "NA", stats: { sword: 1, axe: 2, mace: 3, vanilla: 1, uhc: 2, pot: 1, nethop: 1, smp: 1 } },
+        { name: "coldified", region: "EU", stats: { sword: 2, axe: 1, mace: 2, vanilla: 3, uhc: 1, pot: 1, nethop: 2, smp: 1 } },
+        { name: "Swight", region: "NA", stats: { sword: 3, axe: 2, mace: 2, vanilla: 1, uhc: 1, pot: 3, nethop: 1, smp: 2 } },
+        { name: "Limdex", region: "AS", stats: { sword: 5, axe: 5, mace: 5, vanilla: 5, uhc: 5, pot: 5, nethop: 5, smp: 5 } }
+    ];
+
+    // Load cache ngay lập tức để hiển thị nhanh
+    const cached = localStorage.getItem('accension_players');
+    let players = cached ? JSON.parse(cached) : JSON.parse(JSON.stringify(defaultPlayers));
+    let firebaseReady = false;
+
+    function savePlayers() {
+        // Lưu cache local ngay
+        localStorage.setItem('accension_players', JSON.stringify(players));
+        // Đồng bộ lên Firebase
+        if (firebaseReady) {
+            playersRef.set(players).catch(err => {
+                console.error('Firebase save error:', err);
+            });
+        }
+    }
+
+    function sortPlayers() {
+        players.sort((a, b) => calcPoints(b.stats) - calcPoints(a.stats));
+    }
+
+    function renderCurrentView() {
+        if (currentActiveTab === 'overall') {
+            renderOverallLeaderboard();
+        } else {
+            renderBoardView(currentActiveTab);
+        }
+        updateFooterStats();
+    }
+
+    // Hiển thị ngay từ cache
+    renderCurrentView();
+
+    // Sync Firebase ngầm
+    firebase.auth().signInAnonymously()
+        .then(() => {
+            playersRef.on('value', (snapshot) => {
+                firebaseReady = true;
+                const data = snapshot.val();
+                let newData;
+                if (data) {
+                    const arr = Array.isArray(data) ? data : Object.values(data);
+                    newData = arr.filter(p => p && p.name && p.stats);
+                } else {
+                    newData = JSON.parse(JSON.stringify(defaultPlayers));
+                    savePlayers();
+                }
+                
+                // Only re-render if data actually changed to prevent double-loading flicker
+                if (JSON.stringify(players) !== JSON.stringify(newData)) {
+                    players = newData;
+                    localStorage.setItem('accension_players', JSON.stringify(players));
+                    renderCurrentView();
+                } else {
+                    players = newData;
+                }
+            }, (error) => {
+                console.error('Firebase read error:', error);
+            });
+        })
+        .catch((error) => {
+            console.error('Firebase auth error:', error);
+        });
+
+    // Logic Đổi Tab với fade animation
+    function switchView(newTab) {
+        const overallView = document.getElementById('overallView');
+        const boardView = document.getElementById('boardView');
+        const currentVisible = overallView.style.display !== 'none' ? overallView : (boardView.style.display !== 'none' ? boardView : overallView);
+
+        // Fade out current view
+        currentVisible.classList.remove('fade-in');
+        currentVisible.classList.add('fade-out');
+
+        setTimeout(() => {
+            // Hide old view
+            currentVisible.classList.remove('fade-out');
+            overallView.style.display = 'none';
+            boardView.style.display = 'none';
+
+            // Show & render new view
+            if (newTab === 'overall') {
+                overallView.style.display = 'block';
+                renderOverallLeaderboard();
+                overallView.classList.add('fade-in');
+            } else {
+                boardView.style.display = 'grid';
+                renderBoardView(newTab);
+                boardView.classList.add('fade-in');
+            }
+        }, 250); // match fadeOut duration
+    }
+
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const newTarget = tab.getAttribute('data-target');
+            if (newTarget === currentActiveTab) return; // skip if same tab
+
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentActiveTab = newTarget;
+            switchView(currentActiveTab);
+        });
+    });
+
+    // Hàm Render Giao diện Tổng (Overall)
+    function renderOverallLeaderboard() {
+        const list = document.getElementById('playerList');
+        list.innerHTML = ''; 
+
+        sortPlayers();
+
+        players.forEach((player, index) => {
+            const rank = index + 1;
+            
+            let rankClass = 'rank-other';
+            if (rank === 1) rankClass = 'rank-1';
+            else if (rank === 2) rankClass = 'rank-2';
+            else if (rank === 3) rankClass = 'rank-3';
+
+            let tiersHTML = '';
+            categories.forEach(cat => {
+                const val = player.stats[cat.id];
+                if(val) {
+                    let badgeClass = 'tier-badge';
+                    if(val === 1) badgeClass += ' top-1';
+                    else if(val === 2) badgeClass += ' top-2';
+                    else if(val === 3) badgeClass += ' top-3';
+
+                    tiersHTML += `
+                    <div class="tier-item" onclick="goToBoard('${cat.id}', '${player.name}')">
+                        <div class="tier-title">
+                            <img src="${cat.icon}" alt="${cat.name}"> 
+                            ${cat.name}
+                        </div>
+                        <div class="${badgeClass}">#${val}</div>
+                    </div>`;
+                }
+            });
+
+            const avatarUrl = `https://mc-heads.net/avatar/${player.name}/100`;
+
+            const row = document.createElement('div');
+            row.className = 'player-row';
+            row.style.animationDelay = `${index * 0.08}s`;
+            
+            row.innerHTML = `
+                <div class="rank-box ${rankClass}">#${rank}</div>
+                
+                <div class="player-info" onclick="openPlayerProfile('${player.name}')" style="cursor: pointer;">
+                    <img src="${avatarUrl}" alt="avatar" class="avatar" onerror="this.src='https://crafatar.com/avatars/606e2ff0ed7748429d6ce0927ce6486?size=100'">
+                    <div class="name-wrapper">
+                        <h3>${player.name}</h3>
+                        <div class="title">❖ ${getTitle(calcPoints(player.stats))} (<span>${calcPoints(player.stats)} pts</span>)</div>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="region ${player.region}">${player.region}</span>
+                </div>
+
+                <div class="tiers">
+                    ${tiersHTML}
+                </div>
+            `;
+            // Sau animation entrance xong, thêm class 'entered' để hover hoạt động
+            row.addEventListener('animationend', () => {
+                row.classList.add('entered');
+            }, { once: true });
+
+            // Hover: nâng lên mượt → rồi mới đung đưa
+            let bobTimer;
+            row.addEventListener('mouseenter', () => {
+                bobTimer = setTimeout(() => row.classList.add('bobbing'), 500);
+            });
+            row.addEventListener('mouseleave', () => {
+                clearTimeout(bobTimer);
+                row.classList.remove('bobbing');
+            });
+
+            list.appendChild(row);
+        });
+    }
+
+    // Hàm Render Giao Diện Cột Tiers (Board View)
+    function renderBoardView(category) {
+        const board = document.getElementById('boardView');
+        board.innerHTML = '';
+        
+        sortPlayers();
+
+        const columnsData = [
+            { num: 1, title: "#1", iconSrc: IMG.tier1, class: "col-header-1" },
+            { num: 2, title: "#2", iconSrc: IMG.tier2, class: "col-header-2" },
+            { num: 3, title: "#3", iconSrc: IMG.tier3, class: "col-header-3" },
+            { num: 4, title: "#4", iconSrc: null, class: "col-header-4" },
+            { num: 5, title: "#5", iconSrc: null, class: "col-header-5" }
+        ];
+
+        columnsData.forEach((colInfo, colIndex) => {
+            const colDiv = document.createElement('div');
+            colDiv.className = 'board-col';
+            colDiv.style.animationDelay = `${colIndex * 0.1}s`;
+
+            let headerIconHTML = colInfo.iconSrc ? `<img src="${colInfo.iconSrc}" alt="Rank ${colInfo.num}">` : '';
+
+            let htmlContent = `
+                <div class="board-header ${colInfo.class}">
+                    ${headerIconHTML} ${colInfo.title}
+                </div>
+                <div class="board-players-container">
+            `;
+
+            // Lọc data theo category
+            const matchingPlayers = players.filter(p => p.stats[category] === colInfo.num);
+
+            matchingPlayers.forEach(p => {
+                const avatarUrl = `https://mc-heads.net/avatar/${p.name}/50`;
+                htmlContent += `
+                    <div class="board-player-card" onclick="openPlayerProfile('${p.name}')" style="cursor: pointer;">
+                        <img src="${avatarUrl}" class="avatar" alt="${p.name}" onerror="this.src='https://crafatar.com/avatars/606e2ff0ed7748429d6ce0927ce6486?size=50'">
+                        <span class="name">${p.name}</span>
+                    </div>
+                `;
+            });
+
+            htmlContent += `</div>`;
+            colDiv.innerHTML = htmlContent;
+            board.appendChild(colDiv);
+
+            // Th\u00eam hi\u1ec7u \u1ee9ng hover m\u01b0\u1ee3t cho t\u1eebng card trong c\u1ed9t
+            colDiv.querySelectorAll('.board-player-card').forEach(card => {
+                let bobTimer;
+                card.addEventListener('mouseenter', () => {
+                    bobTimer = setTimeout(() => card.classList.add('bobbing'), 500);
+                });
+                card.addEventListener('mouseleave', () => {
+                    clearTimeout(bobTimer);
+                    card.classList.remove('bobbing');
+                });
+            });
+        });
+    }
+    // JS Add/Delete Removed for Discord Bot
+
+    function updateFooterStats() {
+        document.getElementById('statTotalPlayers').innerText = players.length;
+        let totalPlacements = 0;
+        let highestScore = 0;
+        players.forEach(p => {
+            let placements = Object.keys(p.stats || {}).length;
+            totalPlacements += placements;
+            let score = calcPoints(p.stats);
+            if(score > highestScore) highestScore = score;
+        });
+        document.getElementById('statTotalPlacements').innerText = totalPlacements;
+        document.getElementById('statTopScore').innerText = highestScore;
+    }
+
+    // --- Player Profile Modal Logic ---
+    function openPlayerProfile(playerName) {
+        const player = players.find(p => p.name === playerName);
+        if(!player) return;
+
+        // Calculate rank
+        sortPlayers();
+        const rank = players.findIndex(p => p.name === playerName) + 1;
+        const pts = calcPoints(player.stats);
+        
+        document.getElementById('modalAvatar').src = `https://mc-heads.net/avatar/${player.name}/200`;
+        document.getElementById('modalAvatar').onerror = function() { this.src='https://crafatar.com/avatars/606e2ff0ed7748429d6ce0927ce6486?size=200'; };
+        document.getElementById('modalName').textContent = player.name;
+        document.getElementById('modalTitle').innerHTML = `❖ ${getTitle(pts)}`;
+        document.getElementById('modalRegion').textContent = player.region;
+        document.getElementById('modalNamemc').href = `https://namemc.com/profile/${player.name}`;
+        
+        document.getElementById('modalOverallRank').textContent = rank + '.';
+        document.getElementById('modalOverallPoints').textContent = `(${pts} points)`;
+
+        // Tiers / Positions
+        let tiersHTML = '';
+        categories.forEach(cat => {
+            const val = player.stats[cat.id];
+            if(val) {
+                let badgeClass = 'badge';
+                if(val === 1) badgeClass += ' top-1';
+                else if(val === 2) badgeClass += ' top-2';
+                else if(val === 3) badgeClass += ' top-3';
+                
+                tiersHTML += `
+                <div class="modal-tier-icon" onclick="goToBoard('${cat.id}', '${playerName}')">
+                    <img src="${cat.icon}" alt="${cat.name}">
+                    <div class="${badgeClass}">#${val}</div>
+                </div>`;
+            }
+        });
+        document.getElementById('modalTiers').innerHTML = tiersHTML;
+
+        document.getElementById('playerModal').classList.add('active');
+    }
+
+    function closePlayerProfile() {
+        document.getElementById('playerModal').classList.remove('active');
+    }
+
+    function goToBoard(categoryId, playerName) {
+        closePlayerProfile();
+        
+        // Update active tab visually
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        const targetTab = document.querySelector(`.tab[data-target="${categoryId}"]`);
+        if(targetTab) targetTab.classList.add('active');
+        
+        currentActiveTab = categoryId;
+        switchView(currentActiveTab);
+
+        // Wait for switchView animation (250ms) to finish rendering board
+        setTimeout(() => {
+            const cards = document.querySelectorAll('.board-player-card');
+            for(let card of cards) {
+                if(card.querySelector('.name').textContent === playerName) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.classList.add('neon-blink');
+                    setTimeout(() => card.classList.remove('neon-blink'), 1200);
+                    break;
+                }
+            }
+        }, 300);
+    }
+</script>
+</body>
+</html>
