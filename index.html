@@ -204,8 +204,13 @@
         }
 
         @keyframes neonBob {
-            0%, 100% { transform: translateY(-5px) scale(1.025); }
-            50%      { transform: translateY(-2px) scale(1.015); }
+            0%, 100% { transform: translateY(-5px) scale(1.04); }
+            50%      { transform: translateY(-2px) scale(1.03); }
+        }
+
+        @keyframes sweepLight {
+            0% { transform: translateX(-100px) skewX(-20deg); }
+            20%, 100% { transform: translateX(200px) skewX(-20deg); }
         }
 
         @keyframes neonPulseLight {
@@ -284,11 +289,20 @@
             animation: none;
         }
 
-        .player-row.entered:hover {
-            transform: translateY(-5px) scale(1.025);
+        /* --- Cỡ chữ và Kích thước to hơn cho Top 1, 2, 3 --- */
+        .player-row.rank-row-1 { transform: scale(1.04); margin: 8px 0; border-color: rgba(223,166,50,0.3); }
+        .player-row.rank-row-2 { transform: scale(1.025); margin: 6px 0; border-color: rgba(138,149,153,0.3); }
+        .player-row.rank-row-3 { transform: scale(1.015); margin: 4px 0; border-color: rgba(194,104,40,0.3); }
+
+        .player-row.entered:hover,
+        .player-row.rank-row-1:hover,
+        .player-row.rank-row-2:hover,
+        .player-row.rank-row-3:hover {
+            transform: translateY(-5px) scale(1.05);
             background-color: var(--hover-bg);
             border-color: #ffffff;
             animation: neonPulse 2s ease-in-out infinite;
+            z-index: 10;
         }
 
         .player-row.bobbing {
@@ -322,6 +336,21 @@
             pointer-events: none;
         }
 
+        /* --- Hiệu ứng ánh sáng lướt qua kính (Sweep) --- */
+        .rank-1::before, .rank-2::before, .rank-3::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50px;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-20deg);
+            animation: sweepLight 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 4;
+            pointer-events: none;
+        }
+
         .rank-number {
             font-size: 26px;
             font-weight: 900;
@@ -333,10 +362,10 @@
         }
 
         .player-bust {
-            height: 75px;
+            height: 70px;
             position: absolute;
             right: -5px;
-            top: -2px;
+            top: 5px;
             z-index: 1;
         }
 
@@ -1218,10 +1247,15 @@
                 }
             });
 
-            const bustUrl = `https://mc-heads.net/body/${player.name}/100`;
+            let rowClassExtra = '';
+            if (rank === 1) rowClassExtra = 'rank-row-1';
+            else if (rank === 2) rowClassExtra = 'rank-row-2';
+            else if (rank === 3) rowClassExtra = 'rank-row-3';
+
+            const bustUrl = `https://minotar.net/armor/body/${player.name}/100.png`;
 
             const row = document.createElement('div');
-            row.className = 'player-row';
+            row.className = `player-row ${rowClassExtra}`;
             row.style.animationDelay = `${index * 0.08}s`;
             
             row.innerHTML = `
