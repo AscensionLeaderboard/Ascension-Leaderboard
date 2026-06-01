@@ -213,6 +213,11 @@
             20%, 100% { transform: translateX(200px) skewX(-20deg); }
         }
 
+        @keyframes hoverSweep {
+            0% { left: -100%; }
+            100% { left: 150%; }
+        }
+
         @keyframes neonPulseLight {
             0%, 100% { 
                 box-shadow: 
@@ -282,6 +287,26 @@
                         box-shadow 0.4s ease;
             opacity: 0;
             animation: rowEntrance 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Shimmer sweep on hover */
+        .player-row::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.08) 60%, transparent 100%);
+            transform: skewX(-20deg);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .player-row:hover::after {
+            animation: hoverSweep 0.8s ease-out forwards;
         }
 
         .player-row.entered {
@@ -299,10 +324,31 @@
         .player-row.rank-row-2:hover,
         .player-row.rank-row-3:hover {
             transform: translateY(-5px) scale(1.03);
-            background-color: var(--hover-bg);
-            border-color: #ffffff;
+            background: linear-gradient(135deg, var(--hover-bg) 0%, rgba(40,40,40,1) 100%);
+            border-color: rgba(255,255,255,0.6);
             animation: neonPulse 2s ease-in-out infinite;
             z-index: 10;
+        }
+
+        /* Rank-specific colored glow on hover */
+        .player-row.rank-row-1:hover {
+            border-color: rgba(223,166,50,0.8);
+            box-shadow: 0 0 15px rgba(223,166,50,0.3), 0 0 40px rgba(223,166,50,0.1), 0 8px 25px rgba(0,0,0,0.4);
+        }
+        .player-row.rank-row-2:hover {
+            border-color: rgba(138,149,153,0.8);
+            box-shadow: 0 0 15px rgba(138,149,153,0.3), 0 0 40px rgba(138,149,153,0.1), 0 8px 25px rgba(0,0,0,0.4);
+        }
+        .player-row.rank-row-3:hover {
+            border-color: rgba(194,104,40,0.8);
+            box-shadow: 0 0 15px rgba(194,104,40,0.3), 0 0 40px rgba(194,104,40,0.1), 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        /* Skin scales up on hover */
+        .player-row:hover .player-bust {
+            transform: translateX(-50%) scale(1.15);
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
         }
 
         .player-row.bobbing {
@@ -375,6 +421,7 @@
             top: -8px;
             transform: translateX(-50%);
             z-index: 1;
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
         }
 
         .rank-1 { background-color: #dfa632; box-shadow: inset 0 0 20px rgba(223,166,50,0.5); }
