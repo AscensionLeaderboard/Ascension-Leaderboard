@@ -1009,7 +1009,7 @@
             pointer-events: auto;
         }
         .modal-content {
-            background: #0b0f19;
+            background: #050505;
             border-radius: 20px;
             width: 90%;
             max-width: 400px;
@@ -1118,15 +1118,20 @@
             margin-bottom: 8px;
             letter-spacing: 1px;
         }
-        .modal-overall-box {
-            background: #0f172a;
-            border: 1px solid #334155;
+        .modal-overall-box, .modal-positions-box {
+            background: #0e0e11;
+            border: 1px solid #1a1a24;
             border-radius: 8px;
+        }
+        .modal-overall-box {
             display: flex;
             align-items: center;
             height: 50px;
             overflow: hidden;
             position: relative;
+        }
+        .modal-positions-box {
+            padding: 12px 15px;
         }
         .modal-rank {
             font-size: 22px;
@@ -1154,12 +1159,12 @@
             transform: scale(1.1);
         }
         .modal-tier-icon img {
-            width: 26px;
-            height: 26px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: #111111;
-            padding: 5px;
-            border: 1px solid rgba(255,255,255,0.05);
+            padding: 6px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
         .modal-tier-icon-value {
             font-size: 13px;
@@ -1210,28 +1215,34 @@
             <h2 class="modal-title" style="margin:0; font-size: 18px; color: #fff;">Rank Information</h2>
             <button class="modal-close" onclick="closeRankInfo()" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer; padding: 0;">&times;</button>
         </div>
-        <div class="modal-body" style="display: flex; flex-direction: column; gap: 15px;">
             <div style="display: flex; gap: 15px; align-items: center;">
-                <div style="width: 24px; text-align: center; color: #facc15;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L22 12L12 22L2 12L12 2Z"/></svg></div>
+                <img src="https://i.postimg.cc/Y2RdcHbH/combat-grandmaster.webp" style="width: 24px; height: 24px; object-fit: contain;">
                 <div><div style="color: #facc15; font-weight: bold; font-size: 15px;">Combat Grandmaster</div><div style="color: #888; font-size: 13px;">Obtained 80+ total points.</div></div>
             </div>
             <div style="display: flex; gap: 15px; align-items: center;">
-                <div style="width: 24px; text-align: center; color: #facc15;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4L20 12L12 20L4 12L12 4Z"/></svg></div>
+                <img src="https://i.postimg.cc/TPbtB5HD/combat-master.webp" style="width: 24px; height: 24px; object-fit: contain;">
                 <div><div style="color: #facc15; font-weight: bold; font-size: 15px;">Combat Master</div><div style="color: #888; font-size: 13px;">Obtained 50+ total points.</div></div>
             </div>
             <div style="display: flex; gap: 15px; align-items: center;">
-                <div style="width: 24px; text-align: center; color: #f43f5e;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 6L18 12L12 18L6 12L12 6Z"/></svg></div>
+                <img src="https://i.postimg.cc/qBx5knBz/combat-ace.jpg" style="width: 24px; height: 24px; object-fit: contain;">
                 <div><div style="color: #f43f5e; font-weight: bold; font-size: 15px;">Combat Ace</div><div style="color: #888; font-size: 13px;">Obtained 30+ total points.</div></div>
             </div>
             <div style="display: flex; gap: 15px; align-items: center;">
-                <div style="width: 24px; text-align: center; color: #d946ef;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 6L18 12L12 18L6 12L12 6Z"/></svg></div>
+                <img src="https://i.postimg.cc/pL6SwHWk/combat-specialist.jpg" style="width: 24px; height: 24px; object-fit: contain;">
                 <div><div style="color: #d946ef; font-weight: bold; font-size: 15px;">Combat Specialist</div><div style="color: #888; font-size: 13px;">Obtained 15+ total points.</div></div>
             </div>
             <div style="display: flex; gap: 15px; align-items: center;">
-                <div style="width: 24px; text-align: center; color: #9ca3af;"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/></svg></div>
-                <div><div style="color: #9ca3af; font-weight: bold; font-size: 15px;">Fighter</div><div style="color: #888; font-size: 13px;">Starting rank for players with less than 15 points.</div></div>
+                <img src="https://i.postimg.cc/59BZ6TgY/combat-cadet.jpg" style="width: 24px; height: 24px; object-fit: contain;">
+                <div><div style="color: #3b82f6; font-weight: bold; font-size: 15px;">Combat Cadet</div><div style="color: #888; font-size: 13px;">Obtained 10+ total points.</div></div>
             </div>
-        </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <img src="https://i.postimg.cc/FHCthSpm/combat-novice.jpg" style="width: 24px; height: 24px; object-fit: contain;">
+                <div><div style="color: #10b981; font-weight: bold; font-size: 15px;">Combat Novice</div><div style="color: #888; font-size: 13px;">Obtained 5+ total points.</div></div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <img src="https://i.postimg.cc/X78SDmyS/rookie.jpg" style="width: 24px; height: 24px; object-fit: contain;">
+                <div><div style="color: #9ca3af; font-weight: bold; font-size: 15px;">Rookie</div><div style="color: #888; font-size: 13px;">Starting rank for players with less than 5 points.</div></div>
+            </div>
     </div>
 </div>
 
@@ -1260,21 +1271,23 @@
         <div class="modal-section">
             <div class="modal-section-title">POSITION</div>
             <div class="modal-overall-box">
-                <div id="modalOverallBanner" style="display: flex; align-items: center; justify-content: center; padding: 0 20px; border-right: 1px solid rgba(255,255,255,0.1);">
+                <div id="modalOverallBanner" style="display: flex; align-items: center; justify-content: center; padding: 0 20px; border-right: 1px solid rgba(255,255,255,0.05);">
                     <span id="modalOverallRank" class="modal-rank" style="font-size: 24px; font-weight: 900; font-style: italic; color: #fff;">#1</span>
                 </div>
-                <div style="display: flex; align-items: center; padding-left: 10px; z-index: 1;">
-                    <svg style="color: #facc15; width: 20px; height: 20px; margin-right: 8px;" viewBox="0 0 24 24" fill="currentColor"><path d="M20,2H4v2h16V2z M21,5H3v10c0,2.21,1.79,4,4,4h3v2h4v-2h3c2.21,0,4-1.79,4-4V5z M7,17c-1.1,0-2-0.9-2-2V7h2V17z M19,15c0,1.1-0.9,2-2,2h-2V7h4V15z M13,11V7h-2v4H13z"/></svg>
+                <div style="display: flex; align-items: center; padding-left: 15px; z-index: 1;">
+                    <img id="modalOverallIcon" src="" alt="Overall" style="width: 20px; height: 20px; margin-right: 8px; object-fit: contain;">
                     <span style="font-weight: 800; font-size: 16px; color: #fff; letter-spacing: 0.5px;">OVERALL</span>
-                    <span id="modalOverallPoints" style="color: #94a3b8; font-size: 14px; margin-left: 6px; font-weight: normal;">(330 points)</span>
+                    <span id="modalOverallPoints" style="color: #94a3b8; font-size: 14px; margin-left: 6px; font-weight: normal;">(0 points)</span>
                 </div>
             </div>
         </div>
 
-        <div class="modal-section">
+        <div class="modal-section" style="margin-top: 25px;">
             <div class="modal-section-title">POSITIONS</div>
-            <div id="modalTiers" class="modal-tiers-grid">
-                <!-- tier icons will be injected here -->
+            <div class="modal-positions-box">
+                <div id="modalTiers" class="modal-tiers-grid">
+                    <!-- tier icons will be injected here -->
+                </div>
             </div>
         </div>
     </div>
@@ -1403,7 +1416,19 @@
         if (points >= 50) return 'Combat Master';
         if (points >= 30) return 'Combat Ace';
         if (points >= 15) return 'Combat Specialist';
-        return 'Fighter';
+        if (points >= 10) return 'Combat Cadet';
+        if (points >= 5)  return 'Combat Novice';
+        return 'Rookie';
+    }
+
+    function getRankIcon(points) {
+        if (points >= 80) return 'https://i.postimg.cc/Y2RdcHbH/combat-grandmaster.webp';
+        if (points >= 50) return 'https://i.postimg.cc/TPbtB5HD/combat-master.webp';
+        if (points >= 30) return 'https://i.postimg.cc/qBx5knBz/combat-ace.jpg';
+        if (points >= 15) return 'https://i.postimg.cc/pL6SwHWk/combat-specialist.jpg';
+        if (points >= 10) return 'https://i.postimg.cc/59BZ6TgY/combat-cadet.jpg';
+        if (points >= 5)  return 'https://i.postimg.cc/FHCthSpm/combat-novice.jpg';
+        return 'https://i.postimg.cc/X78SDmyS/rookie.jpg';
     }
 
     // --- Firebase Setup ---
@@ -1708,19 +1733,16 @@
         document.getElementById('modalAvatar').onerror = function() { this.src='https://crafatar.com/renders/body/606e2ff0ed7748429d6ce0927ce6486?size=200'; };
         document.getElementById('modalName').textContent = player.name;
         
-        // Update modal title icon SVG based on title
-        let svgIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;"><path d="M12 2L22 12L12 22L2 12Z"/></svg>';
-        
-        let titleColor = pts >= 50 ? '#facc15' : pts >= 30 ? '#f43f5e' : pts >= 15 ? '#d946ef' : '#9ca3af';
         const titleEl = document.getElementById('modalTitle');
-        let coloredIcon = svgIcon.replace('fill="currentColor"', `fill="${titleColor}"`);
-        titleEl.innerHTML = `${coloredIcon} ${getTitle(pts)}`;
+        const iconUrl = getRankIcon(pts);
+        titleEl.innerHTML = `<img src="${iconUrl}" style="width: 16px; height: 16px; object-fit: contain; margin-right: 6px;"> ${getTitle(pts)}`;
         
         document.getElementById('modalRegion').textContent = player.region;
         document.getElementById('modalNamemc').href = `https://namemc.com/profile/${player.name}`;
         
         document.getElementById('modalOverallRank').textContent = '#' + rank;
         document.getElementById('modalOverallPoints').textContent = `(${pts} points)`;
+        document.getElementById('modalOverallIcon').src = IMG.overall;
 
         // Tiers / Positions
         let tiersHTML = '';
