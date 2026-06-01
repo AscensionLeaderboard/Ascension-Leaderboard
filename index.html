@@ -581,6 +581,7 @@
         .tiers::-webkit-scrollbar { display: none; }
 
         .tier-item {
+            position: relative;
             width: 62px; 
             height: 50px; 
             flex-shrink: 0;
@@ -1148,6 +1149,7 @@
             justify-content: flex-start;
         }
         .modal-tier-icon {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1172,6 +1174,61 @@
             border-radius: 12px;
             margin-top: 2px;
         }
+        
+        .tooltip-box {
+            position: absolute;
+            bottom: calc(100% + 5px);
+            left: 50%;
+            transform: translateX(-50%) scale(0.95);
+            background: #111827;
+            border: 1px solid #1f2937;
+            padding: 8px 14px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            z-index: 100;
+            text-align: center;
+        }
+        .tooltip-box::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #1f2937;
+        }
+        .tooltip-box::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-1px);
+            border: 6px solid transparent;
+            border-top-color: #111827;
+            z-index: 2;
+        }
+        .modal-tier-icon:hover .tooltip-box,
+        .tier-item:hover .tooltip-box {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) scale(1);
+        }
+        .tooltip-title {
+            font-size: 16px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+        .tooltip-desc {
+            font-size: 13px;
+            color: #9ca3af;
+            white-space: nowrap;
+        }
+
         @keyframes iconWiggle {
             0%, 100% { transform: scale(1.15) translateY(-3px) rotate(0deg); }
             25% { transform: scale(1.15) translateY(-3px) rotate(8deg); }
@@ -1581,6 +1638,10 @@
                             ${cat.name}
                         </div>
                         <div class="${badgeClass}">${displayVal}</div>
+                        <div class="tooltip-box">
+                            <div class="tooltip-title">${displayVal}</div>
+                            <div class="tooltip-desc">${POSITION_POINTS[val] || 0} points</div>
+                        </div>
                     </div>`;
                 }
             });
@@ -1766,6 +1827,10 @@
                 <div class="modal-tier-icon" onclick="goToBoard('${cat.id}', '${playerName}')">
                     <img src="${cat.icon}" alt="${cat.name}">
                     <span class="modal-tier-icon-value" style="color: ${color}; background: ${bgAlpha}; border: 1px solid ${borderAlpha}; ${fontStyle}">${label}</span>
+                    <div class="tooltip-box">
+                        <div class="tooltip-title" style="color: ${color}; text-shadow: 0 0 5px ${color};">${label}</div>
+                        <div class="tooltip-desc">${POSITION_POINTS[numVal] || 0} points</div>
+                    </div>
                 </div>`;
             }
         });
