@@ -1051,8 +1051,8 @@
             height: 96px;
             border-radius: 50%;
             margin-bottom: 12px;
-            border: 2px solid #eab308;
-            box-shadow: 0 0 20px rgba(234,179,8,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
             background: #1e293b;
             object-fit: cover;
             object-position: top;
@@ -1062,18 +1062,20 @@
             font-size: 24px;
             font-weight: 800;
             letter-spacing: 0.5px;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
         @keyframes profileGlowTwice {
-            0%, 100% { filter: drop-shadow(0 0 0 rgba(234, 179, 8, 0)); transform: scale(1); }
-            50% { filter: drop-shadow(0 0 15px rgba(234, 179, 8, 1)); transform: scale(1.02); }
+            0%, 100% { filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)); transform: scale(1.02); }
         }
         .profile-glow {
             animation: profileGlowTwice 0.6s ease-in-out 2 !important;
         }
         .modal-title-badge {
-            background: rgba(234, 179, 8, 0.15);
-            color: #facc15;
-            border: 1px solid rgba(234, 179, 8, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 6px 16px;
             border-radius: 20px;
             font-size: 14px;
@@ -1170,11 +1172,13 @@
         }
         }
         @keyframes neonBlinkTwice {
-            0%, 100% { border-color: #333; box-shadow: none; background: transparent; }
+            0%, 100% { border-color: #334155; box-shadow: none; background: #1e293b; transform: scale(1); z-index: 1; }
             50% { 
-                border-color: #fff; 
-                background: #252525;
-                box-shadow: 0 0 15px rgba(255,255,255,1), 0 0 30px rgba(255,255,255,0.5); 
+                border-color: #ffffff; 
+                background: #334155;
+                box-shadow: 0 0 15px rgba(255,255,255,0.8), 0 0 30px rgba(255,255,255,0.4); 
+                transform: scale(1.02);
+                z-index: 10;
             }
         }
         .neon-blink {
@@ -1723,10 +1727,8 @@
         
         let titleColor = pts >= 50 ? '#facc15' : pts >= 30 ? '#f43f5e' : pts >= 15 ? '#d946ef' : '#9ca3af';
         const titleEl = document.getElementById('modalTitle');
-        titleEl.style.color = titleColor;
-        titleEl.style.borderColor = titleColor + '40';
-        titleEl.style.background = titleColor + '20';
-        titleEl.innerHTML = `${svgIcon} ${getTitle(pts)}`;
+        let coloredIcon = svgIcon.replace('fill="currentColor"', `fill="${titleColor}"`);
+        titleEl.innerHTML = `${coloredIcon} ${getTitle(pts)}`;
         
         document.getElementById('modalRegion').textContent = player.region;
         document.getElementById('modalNamemc').href = `https://namemc.com/profile/${player.name}`;
@@ -1785,7 +1787,9 @@
         setTimeout(() => {
             const cards = document.querySelectorAll('.board-player-card');
             for(let card of cards) {
-                if(card.querySelector('.name').textContent === playerName) {
+                let nameEl = card.querySelector('.name');
+                let cName = nameEl ? nameEl.textContent.replace('[R] ', '').trim() : '';
+                if(cName === playerName) {
                     card.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     card.classList.add('neon-blink');
                     setTimeout(() => card.classList.remove('neon-blink'), 1200);
