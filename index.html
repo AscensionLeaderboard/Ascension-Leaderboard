@@ -39,6 +39,9 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* --- Header Section --- */
@@ -393,6 +396,7 @@
             filter: contrast(1.4) brightness(1.2);
         }
 
+
         .tier-badge {
             font-size: 13px;
             font-weight: bold;
@@ -610,7 +614,7 @@
 
         /* --- Premium Footer --- */
         .footer-stats {
-            margin-top: 50px;
+            margin-top: auto;
             padding: 30px 20px;
             display: flex;
             justify-content: center;
@@ -1113,6 +1117,14 @@
             currentVisible.classList.remove('fade-out');
             overallView.style.display = 'none';
             boardView.style.display = 'none';
+
+            // Footer animation
+            const footer = document.querySelector('.footer-stats');
+            if (footer) {
+                footer.classList.remove('fade-in');
+                void footer.offsetWidth; // trigger reflow
+                footer.classList.add('fade-in');
+            }
 
             // Show & render new view
             if (newTab === 'overall') {
