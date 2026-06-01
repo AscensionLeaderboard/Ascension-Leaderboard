@@ -863,19 +863,30 @@
             .player-row > div:nth-child(3) { /* Region */
                 position: absolute;
                 top: 15px;
-                right: 0px;
+                right: 15px;
             }
 
             .player-row > div:nth-child(4) { /* Tiers */
                 width: 100%;
-                margin-top: 5px;
-                padding-left: 15px;
+                margin-top: 10px;
+                padding-left: 0;
             }
             .tiers {
-                justify-content: flex-start;
+                justify-content: center;
                 gap: 8px; /* Tối ưu khoảng cách trên mobile */
                 padding-bottom: 5px; /* Để dễ scroll không lẹm viền */
                 flex-wrap: wrap;
+            }
+
+            .tier-item img, .empty-icon-ring {
+                width: 34px !important;
+                height: 34px !important;
+                padding: 5px !important;
+            }
+            .tier-icon-value {
+                font-size: 10px !important;
+                padding: 2px 6px !important;
+                margin-top: -5px !important;
             }
 
             /* Scroll ngang cho Board View */
