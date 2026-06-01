@@ -1202,6 +1202,45 @@
 <body>
 <div class="bg-mesh"></div>
 <div id="ambientGlow"></div>
+<div id="rankInfoModal" class="modal-overlay" onclick="if(event.target===this) closeRankInfo()">
+    <div class="modal-content" style="max-width: 350px; padding: 20px;">
+        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 class="modal-title" style="margin:0; font-size: 18px; color: #fff;">Rank Information</h2>
+            <button class="modal-close" onclick="closeRankInfo()" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer; padding: 0;">&times;</button>
+        </div>
+        <div class="modal-body" style="display: flex; flex-direction: column; gap: 15px;">
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="width: 24px; text-align: center; color: #facc15;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L22 12L12 22L2 12L12 2Z"/></svg></div>
+                <div><div style="color: #facc15; font-weight: bold; font-size: 15px;">Combat Grandmaster</div><div style="color: #888; font-size: 13px;">Obtained 400+ total points.</div></div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="width: 24px; text-align: center; color: #facc15;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4L20 12L12 20L4 12L12 4Z"/></svg></div>
+                <div><div style="color: #facc15; font-weight: bold; font-size: 15px;">Combat Master</div><div style="color: #888; font-size: 13px;">Obtained 250+ total points.</div></div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="width: 24px; text-align: center; color: #f43f5e;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 6L18 12L12 18L6 12L12 6Z"/></svg></div>
+                <div><div style="color: #f43f5e; font-weight: bold; font-size: 15px;">Combat Ace</div><div style="color: #888; font-size: 13px;">Obtained 100+ total points.</div></div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="width: 24px; text-align: center; color: #d946ef;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 6L18 12L12 18L6 12L12 6Z"/></svg></div>
+                <div><div style="color: #d946ef; font-weight: bold; font-size: 15px;">Combat Specialist</div><div style="color: #888; font-size: 13px;">Obtained 50+ total points.</div></div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="width: 24px; text-align: center; color: #a78bfa;"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg></div>
+                <div><div style="color: #a78bfa; font-weight: bold; font-size: 15px;">Combat Cadet</div><div style="color: #888; font-size: 13px;">Obtained 20+ total points.</div></div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="width: 24px; text-align: center; color: #a78bfa;"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg></div>
+                <div><div style="color: #a78bfa; font-weight: bold; font-size: 15px;">Combat Novice</div><div style="color: #888; font-size: 13px;">Obtained 10+ total points.</div></div>
+            </div>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="width: 24px; text-align: center; color: #9ca3af;"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/></svg></div>
+                <div><div style="color: #9ca3af; font-weight: bold; font-size: 15px;">Rookie</div><div style="color: #888; font-size: 13px;">Starting rank for players with less than 10 points.</div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Player Profile Modal -->
 <div id="playerModal" class="modal-overlay" onclick="if(event.target===this) closePlayerProfile()">
@@ -1261,7 +1300,14 @@
             <div>#</div>
             <div>PLAYER</div>
             <div>REGION</div>
-            <div>POSITIONS</div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span>POSITIONS</span>
+                <svg onclick="openRankInfo()" style="cursor: pointer; width: 16px; height: 16px; color: #aaa; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="View Ranks">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+            </div>
         </div>
         <div class="player-list" id="playerList">
             <div style="text-align:center; color:#888; padding:40px;">Đang tải dữ liệu...</div>
@@ -1354,11 +1400,13 @@
 
     // Xác định title dựa trên điểm
     function getTitle(points) {
-        if (points >= 80) return 'Combat Grandmaster';
-        if (points >= 50) return 'Combat Master';
-        if (points >= 30) return 'Combat Ace';
-        if (points >= 15) return 'Combat Specialist';
-        return 'Fighter';
+        if (points >= 400) return 'Combat Grandmaster';
+        if (points >= 250) return 'Combat Master';
+        if (points >= 100) return 'Combat Ace';
+        if (points >= 50) return 'Combat Specialist';
+        if (points >= 20) return 'Combat Cadet';
+        if (points >= 10) return 'Combat Novice';
+        return 'Rookie';
     }
 
     // --- Firebase Setup ---
@@ -1743,6 +1791,19 @@
             glow.style.setProperty('--mouse-y', e.clientY + 'px');
         }
     });
+
+    // --- Rank Info Modal ---
+    function openRankInfo() {
+        const modal = document.getElementById('rankInfoModal');
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('active'), 10);
+    }
+
+    function closeRankInfo() {
+        const modal = document.getElementById('rankInfoModal');
+        modal.classList.remove('active');
+        setTimeout(() => modal.style.display = 'none', 300);
+    }
 
 </script>
 </body>
