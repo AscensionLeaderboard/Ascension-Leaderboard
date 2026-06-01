@@ -571,19 +571,17 @@
         /* --- Overall Tiers Display --- */
         .tiers {
             display: flex;
-            gap: 6px;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            padding: 2px 0;
+            gap: 8px;
+            flex-wrap: wrap;
+            overflow: visible;
+            padding: 4px 0;
         }
         .tiers::-webkit-scrollbar { display: none; }
 
         .tier-item {
             position: relative;
-            width: 62px; 
-            height: 50px; 
+            width: 72px; 
+            height: 56px; 
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
@@ -607,15 +605,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 3px;
-            font-size: 11px;
+            gap: 4px;
+            font-size: 13px;
             font-weight: 600;
             color: #aaa;
             white-space: nowrap;
         }
         .tier-title img {
-            width: 13px;
-            height: 13px;
+            width: 18px;
+            height: 18px;
             object-fit: contain;
             mix-blend-mode: screen;
             border-radius: 50%;
@@ -654,10 +652,10 @@
 
 
         .tier-badge {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
-            padding: 1px 10px;
-            border-radius: 4px;
+            padding: 2px 12px;
+            border-radius: 6px;
             background: #222;
             color: #fff;
             border: 1px solid #444;
@@ -1153,7 +1151,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             cursor: pointer;
             transition: transform 0.2s;
         }
@@ -1161,8 +1159,8 @@
             transform: scale(1.1);
         }
         .modal-tier-icon img {
-            width: 20px;
-            height: 20px;
+            width: 28px;
+            height: 28px;
             object-fit: contain;
             mix-blend-mode: screen;
             background: transparent;
