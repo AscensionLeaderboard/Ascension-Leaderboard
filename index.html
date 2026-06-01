@@ -30,10 +30,39 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
             color: var(--text-main);
+            margin: 0;
             padding: 20px;
-            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+        .bg-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,10%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,20%,10%,1) 0, transparent 50%);
+        }
+        #ambientGlow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(circle 800px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.03), transparent 80%);
+            transition: background 0.1s;
         }
 
         .container {
@@ -48,11 +77,45 @@
         .header {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            gap: 15px; 
+            justify-content: space-between;
             margin-bottom: 25px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 15px;
+        }
+
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-container input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 16px 10px 40px;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 14px;
+            width: 200px;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            font-family: inherit;
+        }
+
+        .search-container input:focus {
+            outline: none;
+            width: 280px;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(255,255,255,0.05);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            width: 16px;
+            height: 16px;
+            color: #888;
+            pointer-events: none;
         }
 
         .site-logo {
@@ -492,6 +555,11 @@
             color: #ccc;
             border: 1px solid #444;
         }
+        .region.AS { background-color: rgba(46,204,113,0.2); color: #2ecc71; border-color: rgba(46,204,113,0.3); }
+        .region.EU { background-color: rgba(241,196,15,0.2); color: #f1c40f; border-color: rgba(241,196,15,0.3); }
+        .region.SA { background-color: rgba(0,210,255,0.2); color: #00d2ff; border-color: rgba(0,210,255,0.3); }
+        .region.AU { background-color: rgba(181,52,219,0.2); color: #b534db; border-color: rgba(181,52,219,0.3); }
+        .region.NA { background-color: rgba(100,100,255,0.2); color: #6b6bff; border-color: rgba(100,100,255,0.3); }
 
         /* --- Overall Tiers Display --- */
         .tiers {
@@ -708,11 +776,11 @@
             opacity: 1;
         }
 
-        .card-region-tag.AS { background-color: rgba(255,100,100,0.3); color: #ff6b6b; border-left: 3px solid #ff6b6b; }
-        .card-region-tag.EU { background-color: rgba(100,255,100,0.3); color: #6bff6b; border-left: 3px solid #6bff6b; }
+        .card-region-tag.AS { background-color: rgba(46,204,113,0.3); color: #2ecc71; border-left: 3px solid #2ecc71; }
+        .card-region-tag.EU { background-color: rgba(241,196,15,0.3); color: #f1c40f; border-left: 3px solid #f1c40f; }
+        .card-region-tag.SA { background-color: rgba(0,210,255,0.3); color: #00d2ff; border-left: 3px solid #00d2ff; }
+        .card-region-tag.AU { background-color: rgba(181,52,219,0.3); color: #b534db; border-left: 3px solid #b534db; }
         .card-region-tag.NA { background-color: rgba(100,100,255,0.3); color: #6b6bff; border-left: 3px solid #6b6bff; }
-        .card-region-tag.AF { background-color: rgba(255,200,100,0.3); color: #ffc26b; border-left: 3px solid #ffc26b; }
-        .card-region-tag.OC { background-color: rgba(200,100,255,0.3); color: #d06bff; border-left: 3px solid #d06bff; }
 
         .board-player-card.bobbing {
             animation: neonBobLight 2s ease-in-out infinite,
@@ -738,6 +806,20 @@
 
         /* --- Mobile Responsive --- */
         @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .search-container {
+                width: 100%;
+            }
+            .search-container input {
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .search-container input:focus {
+                width: 100%;
+            }
             .leaderboard-header {
                 display: none; /* Ẩn header ở mobile vì layout chuyển sang dạng thẻ */
             }
@@ -1094,6 +1176,8 @@
     </style>
 </head>
 <body>
+<div class="bg-mesh"></div>
+<div id="ambientGlow"></div>
 
 <!-- Player Profile Modal -->
 <div id="playerModal" class="modal-overlay" onclick="if(event.target===this) closePlayerProfile()">
@@ -1135,6 +1219,13 @@
         <div onclick="location.reload()" style="cursor: pointer; display: flex; align-items: center; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
             <img src="https://i.postimg.cc/j5B1nLhX/Silver-Arrow-Emblem-with-Wings-removebg-preview.png" alt="Logo" class="site-logo">
             <div class="site-title">ASCENSION LEADERBOARD</div>
+        </div>
+        <div class="search-container">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="searchInput" placeholder="Search player..." onkeypress="handleSearch(event)">
         </div>
     </div>
 
@@ -1604,6 +1695,31 @@
             }
         }, 300);
     }
+
+    // --- Search Functionality ---
+    function handleSearch(event) {
+        if (event.key === 'Enter') {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            if (query) {
+                const player = players.find(p => p.name.toLowerCase() === query);
+                if (player) {
+                    openPlayerProfile(player.name);
+                } else {
+                    alert('Player not found!');
+                }
+            }
+        }
+    }
+
+    // --- Interactive Ambient Glow ---
+    document.addEventListener('mousemove', e => {
+        const glow = document.getElementById('ambientGlow');
+        if(glow) {
+            glow.style.setProperty('--mouse-x', e.clientX + 'px');
+            glow.style.setProperty('--mouse-y', e.clientY + 'px');
+        }
+    });
+
 </script>
 </body>
 </html>
