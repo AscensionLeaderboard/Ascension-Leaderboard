@@ -1271,38 +1271,159 @@
 <div id="ambientGlow"></div>
 <div id="rankInfoModal" class="modal-overlay" onclick="if(event.target===this) closeRankInfo()">
     <div class="modal-content" style="max-width: 350px; padding: 20px;">
-        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <h2 class="modal-title" style="margin:0; font-size: 18px; color: #fff;">Rank Information</h2>
-            <button class="modal-close" onclick="closeRankInfo()" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer; padding: 0;">&times;</button>
+        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+            <div style="display: flex; flex-direction: column; width: 100%;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h2 class="modal-title" style="margin:0; font-size: 18px; color: #fff;">Rank Information</h2>
+                    <button class="modal-close" onclick="closeRankInfo()" style="background: none; border: none; color: #888; font-size: 24px; cursor: pointer; padding: 0;">&times;</button>
+                </div>
+                <div class="info-tabs-container" style="display: flex; background: rgba(255,255,255,0.05); border-radius: 8px; padding: 4px; position: relative;">
+                    <div id="infoTabSelector" style="position: absolute; top: 4px; left: 4px; height: calc(100% - 8px); width: calc(50% - 4px); background: rgba(255,255,255,0.1); border-radius: 6px; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);"></div>
+                    <button class="info-tab-btn" onclick="switchInfoTab('titles')" style="flex: 1; padding: 8px 0; border: none; background: transparent; color: #fff; cursor: pointer; font-weight: bold; z-index: 1; transition: color 0.2s;">Titles</button>
+                    <button class="info-tab-btn" onclick="switchInfoTab('points')" style="flex: 1; padding: 8px 0; border: none; background: transparent; color: #888; cursor: pointer; font-weight: bold; z-index: 1; transition: color 0.2s;">Points</button>
+                </div>
+            </div>
         </div>
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <img src="https://i.postimg.cc/Y2RdcHbH/combat-grandmaster.webp" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
-                <div><div style="color: #facc15; font-weight: bold; font-size: 15px;">Combat Grandmaster</div><div style="color: #888; font-size: 13px;">Obtained 80+ total points.</div></div>
+
+        <div style="position: relative;">
+            <!-- Titles Tab -->
+            <div id="infoTabTitles" style="display: flex; flex-direction: column; gap: 15px; animation: fadeOpacityOnly 0.3s ease;">
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <img src="https://i.postimg.cc/Y2RdcHbH/combat-grandmaster.webp" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <div><div style="color: #facc15; font-weight: bold; font-size: 15px;">Combat Grandmaster</div><div style="color: #888; font-size: 13px;">Obtained 80+ total points.</div></div>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <img src="https://i.postimg.cc/TPbtB5HD/combat-master.webp" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <div><div style="color: #facc15; font-weight: bold; font-size: 15px;">Combat Master</div><div style="color: #888; font-size: 13px;">Obtained 50+ total points.</div></div>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <img src="https://i.postimg.cc/qBx5knBz/combat-ace.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <div><div style="color: #f43f5e; font-weight: bold; font-size: 15px;">Combat Ace</div><div style="color: #888; font-size: 13px;">Obtained 30+ total points.</div></div>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <img src="https://i.postimg.cc/pL6SwHWk/combat-specialist.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <div><div style="color: #d946ef; font-weight: bold; font-size: 15px;">Combat Specialist</div><div style="color: #888; font-size: 13px;">Obtained 15+ total points.</div></div>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <img src="https://i.postimg.cc/59BZ6TgY/combat-cadet.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <div><div style="color: #3b82f6; font-weight: bold; font-size: 15px;">Combat Cadet</div><div style="color: #888; font-size: 13px;">Obtained 10+ total points.</div></div>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <img src="https://i.postimg.cc/FHCthSpm/combat-novice.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <div><div style="color: #10b981; font-weight: bold; font-size: 15px;">Combat Novice</div><div style="color: #888; font-size: 13px;">Obtained 5+ total points.</div></div>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <img src="https://i.postimg.cc/X78SDmyS/rookie.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <div><div style="color: #9ca3af; font-weight: bold; font-size: 15px;">Rookie</div><div style="color: #888; font-size: 13px;">Starting rank for players with less than 5 points.</div></div>
+                </div>
             </div>
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <img src="https://i.postimg.cc/TPbtB5HD/combat-master.webp" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
-                <div><div style="color: #facc15; font-weight: bold; font-size: 15px;">Combat Master</div><div style="color: #888; font-size: 13px;">Obtained 50+ total points.</div></div>
+
+            <!-- Points Tab -->
+            <div id="infoTabPoints" style="display: none; flex-direction: column; gap: 15px; animation: fadeOpacityOnly 0.3s ease;">
+                <div style="margin-bottom: 5px; color: #e2e8f0; font-size: 14px;">How <span style="text-decoration: underline; text-decoration-color: #888; text-underline-offset: 3px;">ranking points</span> are calculated</div>
+                
+                <!-- Rank 1 -->
+                <div>
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <img src="https://i.postimg.cc/qvvYVqH1/gold-trophy.png" style="width: 20px; height: 20px; mix-blend-mode: screen; margin-right: 8px;">
+                        <span style="color: #facc15; font-weight: bold; font-size: 16px;">#1</span>
+                    </div>
+                    <div style="border-left: 2px solid #facc15; padding-left: 15px; margin-left: 9px;">
+                        <div style="display: flex; gap: 10px;">
+                            <div style="background: rgba(250, 204, 21, 0.1); border: 1px solid rgba(250, 204, 21, 0.2); border-radius: 20px; padding: 4px 12px; display: flex; align-items: center; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline><polyline points="18 9 12 3 6 9"></polyline></svg>
+                                <span style="color: #facc15; font-size: 12px; font-weight: bold;">60 Points</span>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 4px 12px; display: flex; align-items: center; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                <span style="color: #facc15; font-size: 12px; font-weight: bold;">45 Points</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rank 2 -->
+                <div>
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <img src="https://i.postimg.cc/tCTw1pCq/silver-trophy.png" style="width: 20px; height: 20px; mix-blend-mode: screen; margin-right: 8px;">
+                        <span style="color: #94a3b8; font-weight: bold; font-size: 16px;">#2</span>
+                    </div>
+                    <div style="border-left: 2px solid #94a3b8; padding-left: 15px; margin-left: 9px;">
+                        <div style="display: flex; gap: 10px;">
+                            <div style="background: rgba(148, 163, 184, 0.1); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 20px; padding: 4px 12px; display: flex; align-items: center; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline><polyline points="18 9 12 3 6 9"></polyline></svg>
+                                <span style="color: #94a3b8; font-size: 12px; font-weight: bold;">30 Points</span>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 4px 12px; display: flex; align-items: center; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                <span style="color: #94a3b8; font-size: 12px; font-weight: bold;">20 Points</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rank 3 -->
+                <div>
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <img src="https://i.postimg.cc/5trh228j/bronze-trophy.png" style="width: 20px; height: 20px; mix-blend-mode: screen; margin-right: 8px;">
+                        <span style="color: #d97706; font-weight: bold; font-size: 16px;">#3</span>
+                    </div>
+                    <div style="border-left: 2px solid #d97706; padding-left: 15px; margin-left: 9px;">
+                        <div style="display: flex; gap: 10px;">
+                            <div style="background: rgba(217, 119, 6, 0.1); border: 1px solid rgba(217, 119, 6, 0.2); border-radius: 20px; padding: 4px 12px; display: flex; align-items: center; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline><polyline points="18 9 12 3 6 9"></polyline></svg>
+                                <span style="color: #d97706; font-size: 12px; font-weight: bold;">10 Points</span>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 4px 12px; display: flex; align-items: center; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                <span style="color: #d97706; font-size: 12px; font-weight: bold;">6 Points</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rank 4 -->
+                <div>
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="width: 20px; height: 20px; margin-right: 8px; display: flex; align-items: center; justify-content: center; opacity: 0;"></div>
+                        <span style="color: #94a3b8; font-weight: bold; font-size: 16px;">#4</span>
+                    </div>
+                    <div style="border-left: 2px solid #475569; padding-left: 15px; margin-left: 9px;">
+                        <div style="display: flex; gap: 10px;">
+                            <div style="background: rgba(148, 163, 184, 0.1); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 20px; padding: 4px 12px; display: flex; align-items: center; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline><polyline points="18 9 12 3 6 9"></polyline></svg>
+                                <span style="color: #94a3b8; font-size: 12px; font-weight: bold;">4 Points</span>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 4px 12px; display: flex; align-items: center; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                <span style="color: #94a3b8; font-size: 12px; font-weight: bold;">3 Points</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rank 5 -->
+                <div>
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div style="width: 20px; height: 20px; margin-right: 8px; display: flex; align-items: center; justify-content: center; opacity: 0;"></div>
+                        <span style="color: #94a3b8; font-weight: bold; font-size: 16px;">#5</span>
+                    </div>
+                    <div style="border-left: 2px solid #475569; padding-left: 15px; margin-left: 9px;">
+                        <div style="display: flex; gap: 10px;">
+                            <div style="background: rgba(148, 163, 184, 0.1); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 20px; padding: 4px 12px; display: flex; align-items: center; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline><polyline points="18 9 12 3 6 9"></polyline></svg>
+                                <span style="color: #94a3b8; font-size: 12px; font-weight: bold;">2 Points</span>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 4px 12px; display: flex; align-items: center; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                <span style="color: #94a3b8; font-size: 12px; font-weight: bold;">1 Point</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <img src="https://i.postimg.cc/qBx5knBz/combat-ace.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
-                <div><div style="color: #f43f5e; font-weight: bold; font-size: 15px;">Combat Ace</div><div style="color: #888; font-size: 13px;">Obtained 30+ total points.</div></div>
-            </div>
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <img src="https://i.postimg.cc/pL6SwHWk/combat-specialist.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
-                <div><div style="color: #d946ef; font-weight: bold; font-size: 15px;">Combat Specialist</div><div style="color: #888; font-size: 13px;">Obtained 15+ total points.</div></div>
-            </div>
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <img src="https://i.postimg.cc/59BZ6TgY/combat-cadet.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
-                <div><div style="color: #3b82f6; font-weight: bold; font-size: 15px;">Combat Cadet</div><div style="color: #888; font-size: 13px;">Obtained 10+ total points.</div></div>
-            </div>
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <img src="https://i.postimg.cc/FHCthSpm/combat-novice.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
-                <div><div style="color: #10b981; font-weight: bold; font-size: 15px;">Combat Novice</div><div style="color: #888; font-size: 13px;">Obtained 5+ total points.</div></div>
-            </div>
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <img src="https://i.postimg.cc/X78SDmyS/rookie.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
-                <div><div style="color: #9ca3af; font-weight: bold; font-size: 15px;">Rookie</div><div style="color: #888; font-size: 13px;">Starting rank for players with less than 5 points.</div></div>
-            </div>
+        </div>
     </div>
 </div>
 
@@ -1910,6 +2031,39 @@
         const modal = document.getElementById('rankInfoModal');
         modal.classList.remove('active');
         setTimeout(() => modal.style.display = 'none', 300);
+    }
+
+    function switchInfoTab(tabId) {
+        const btns = document.querySelectorAll('.info-tab-btn');
+        const selector = document.getElementById('infoTabSelector');
+        const titles = document.getElementById('infoTabTitles');
+        const points = document.getElementById('infoTabPoints');
+        
+        if(tabId === 'titles') {
+            btns[0].style.color = '#fff';
+            btns[1].style.color = '#888';
+            selector.style.transform = 'translateX(0)';
+            
+            points.style.animation = 'none';
+            points.style.display = 'none';
+            
+            titles.style.display = 'flex';
+            // Trigger reflow to restart animation
+            void titles.offsetWidth;
+            titles.style.animation = 'fadeOpacityOnly 0.3s ease';
+        } else {
+            btns[0].style.color = '#888';
+            btns[1].style.color = '#fff';
+            selector.style.transform = 'translateX(100%)';
+            
+            titles.style.animation = 'none';
+            titles.style.display = 'none';
+            
+            points.style.display = 'flex';
+            // Trigger reflow to restart animation
+            void points.offsetWidth;
+            points.style.animation = 'fadeOpacityOnly 0.3s ease';
+        }
     }
 
 </script>
