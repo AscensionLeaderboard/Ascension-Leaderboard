@@ -296,18 +296,15 @@
             border-radius: 12px;
             padding: 10px;
             border: 1px solid transparent;
+            box-shadow: none;
+            transform: translateY(0) scale(1);
             transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
                         background 0.4s ease,
                         border-color 0.4s ease,
-                        box-shadow 0.45s ease;
-            opacity: 0;
-            animation: rowEntrance 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-            position: relative;
-        }
-
-        .player-row.entered {
+                        box-shadow 0.45s ease,
+                        opacity 0.4s ease;
             opacity: 1;
-            animation: none;
+            position: relative;
         }
 
         /* --- Kích thước to hơn cho Top 1, 2, 3 --- */
@@ -316,7 +313,7 @@
         .player-row.rank-row-3 { padding: 10px; margin: 2px 0; border-color: rgba(194,104,40,0.15); }
 
         /* Default hover: white neon (#4+) */
-        .player-row.entered:hover {
+        .player-row:hover {
             transform: translateY(-4px) scale(1.02);
             background: linear-gradient(135deg, var(--hover-bg) 0%, rgba(40,40,40,1) 100%);
             border-color: rgba(255,255,255,0.5);
@@ -372,11 +369,6 @@
         }
         .player-row.rank-row-3:hover .player-bust {
             filter: drop-shadow(0 0 8px rgba(194,104,40,0.5));
-        }
-
-        .player-row.bobbing {
-            animation: neonBob 2s ease-in-out infinite,
-                       neonPulse 2s ease-in-out infinite !important;
         }
 
         /* --- Premium Rank Banner --- */
@@ -1367,20 +1359,6 @@
                     ${tiersHTML}
                 </div>
             `;
-            // Sau animation entrance xong, thêm class 'entered' để hover hoạt động
-            row.addEventListener('animationend', () => {
-                row.classList.add('entered');
-            }, { once: true });
-
-            // Hover: nâng lên mượt → rồi mới đung đưa
-            let bobTimer;
-            row.addEventListener('mouseenter', () => {
-                bobTimer = setTimeout(() => row.classList.add('bobbing'), 500);
-            });
-            row.addEventListener('mouseleave', () => {
-                clearTimeout(bobTimer);
-                row.classList.remove('bobbing');
-            });
 
             list.appendChild(row);
         });
