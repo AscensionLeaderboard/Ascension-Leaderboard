@@ -851,6 +851,9 @@
                 position: relative;
                 gap: 12px;
                 align-items: center;
+                box-sizing: border-box;
+                width: 100%;
+                overflow: hidden;
             }
 
             .rank-banner, .rank-banner.rank-1, .rank-banner.rank-2, .rank-banner.rank-3 {
@@ -940,7 +943,14 @@
                 overflow-x: auto;
                 justify-content: flex-start;
                 padding-bottom: 5px;
+                -webkit-overflow-scrolling: touch;
             }
+            #categoryTabs::-webkit-scrollbar { display: none; }
+
+            .tabs {
+                -webkit-overflow-scrolling: touch;
+            }
+            .tabs::-webkit-scrollbar { display: none; }
 
             .tab {
                 flex: 0 0 auto;
