@@ -1853,13 +1853,14 @@
                     let peakRank = (player.peaks && player.peaks[cat.id]) ? player.peaks[cat.id] : null;
                     let tooltipTitle = peakRank ? `Peak #${peakRank}` : label;
                     let tooltipPoints = peakRank ? (POSITION_POINTS[peakRank] || 0) : (POSITION_POINTS[numVal] || 0);
+                    let tooltipColor = peakRank === 1 ? '#dfa539' : peakRank === 2 ? '#aabac6' : peakRank === 3 ? '#be733f' : peakRank ? '#64748b' : color;
 
                     filledTiersHTML += `
                     <div class="tier-item" onclick="goToBoard('${cat.id}', '${player.name}')">
                         <img src="${cat.icon}" alt="${cat.name}" style="border: 1.5px solid ${color};">
                         <span class="tier-icon-value" style="color: ${color}; background: ${bgAlpha}; border: 1px solid ${borderAlpha}; ${fontStyle}">${label}</span>
                         <div class="tooltip-box">
-                            <div class="tooltip-title" style="color: ${color}; text-shadow: 0 0 5px ${color};">${tooltipTitle}</div>
+                            <div class="tooltip-title" style="color: ${tooltipColor}; text-shadow: 0 0 5px ${tooltipColor};">${tooltipTitle}</div>
                             <div class="tooltip-desc">${tooltipPoints} points</div>
                         </div>
                     </div>`;
@@ -2053,13 +2054,14 @@
                 let peakRank = (player.peaks && player.peaks[cat.id]) ? player.peaks[cat.id] : null;
                 let tooltipTitle = peakRank ? `Peak #${peakRank}` : label;
                 let tooltipPoints = peakRank ? (POSITION_POINTS[peakRank] || 0) : (POSITION_POINTS[numVal] || 0);
+                let tooltipColor = peakRank === 1 ? '#dfa539' : peakRank === 2 ? '#aabac6' : peakRank === 3 ? '#be733f' : peakRank ? '#64748b' : color;
                 
                 tiersHTML += `
                 <div class="modal-tier-icon" onclick="goToBoard('${cat.id}', '${playerName}')">
                     <img src="${cat.icon}" alt="${cat.name}" style="border: 1.5px solid ${color};">
                     <span class="modal-tier-icon-value" style="color: ${color}; background: ${bgAlpha}; border: 1px solid ${borderAlpha}; ${fontStyle}">${label}</span>
                     <div class="tooltip-box">
-                        <div class="tooltip-title" style="color: ${color}; text-shadow: 0 0 5px ${color};">${tooltipTitle}</div>
+                        <div class="tooltip-title" style="color: ${tooltipColor}; text-shadow: 0 0 5px ${tooltipColor};">${tooltipTitle}</div>
                         <div class="tooltip-desc">${tooltipPoints} points</div>
                     </div>
                 </div>`;
