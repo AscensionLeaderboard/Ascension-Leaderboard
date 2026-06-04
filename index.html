@@ -1665,12 +1665,18 @@
     // Bảng điểm theo position
     const POSITION_POINTS = { 1: 10, 2: 7, 3: 5, 4: 3, 5: 1 };
 
-    // Tính tổng điểm từ stats
-    function calcPoints(stats) {
+    // Tính tổng điểm từ stats và peaks
+    function calcPoints(stats, peaks = {}) {
         let total = 0;
         categories.forEach(cat => {
             let pos = stats[cat.id];
-            if (pos) {
+            let peakPos = peaks[cat.id];
+            
+            if (peakPos !== undefined) {
+                if (POSITION_POINTS[peakPos] !== undefined) {
+                    total += POSITION_POINTS[peakPos];
+                }
+            } else if (pos) {
                 if (typeof pos === 'string' && pos.startsWith('r')) {
                     pos = parseInt(pos.substring(1));
                 }
@@ -1718,7 +1724,7 @@
     let firebaseReady = false;
 
     function sortPlayers() {
-        players.sort((a, b) => calcPoints(b.stats) - calcPoints(a.stats));
+        players.sort((a, b) => calcPoints(b.stats, b.peaks) - calcPoints(a.stats, a.peaks));
     }
 
     function renderCurrentView() {
@@ -1844,13 +1850,17 @@
                     let label = isRetired ? `R#${numVal}` : `#${numVal}`;
                     let fontStyle = isRetired ? 'font-style: italic;' : '';
 
+                    let peakRank = (player.peaks && player.peaks[cat.id]) ? player.peaks[cat.id] : null;
+                    let tooltipTitle = peakRank ? `Peak #${peakRank}` : label;
+                    let tooltipPoints = peakRank ? (POSITION_POINTS[peakRank] || 0) : (POSITION_POINTS[numVal] || 0);
+
                     filledTiersHTML += `
                     <div class="tier-item" onclick="goToBoard('${cat.id}', '${player.name}')">
                         <img src="${cat.icon}" alt="${cat.name}" style="border: 1.5px solid ${color};">
                         <span class="tier-icon-value" style="color: ${color}; background: ${bgAlpha}; border: 1px solid ${borderAlpha}; ${fontStyle}">${label}</span>
                         <div class="tooltip-box">
-                            <div class="tooltip-title" style="color: ${color}; text-shadow: 0 0 5px ${color};">${label}</div>
-                            <div class="tooltip-desc">${POSITION_POINTS[numVal] || 0} points</div>
+                            <div class="tooltip-title" style="color: ${color}; text-shadow: 0 0 5px ${color};">${tooltipTitle}</div>
+                            <div class="tooltip-desc">${tooltipPoints} points</div>
                         </div>
                     </div>`;
                 } else {
@@ -1883,7 +1893,7 @@
                 <div class="player-info" onclick="openPlayerProfile('${player.name}')" style="cursor: pointer;">
                     <div class="name-wrapper">
                         <h3>${player.name}</h3>
-                        <div class="title" style="display: flex; align-items: center;"><img src="${getRankIcon(calcPoints(player.stats))}" style="width: 22px; height: 22px; object-fit: contain; margin-right: 6px; mix-blend-mode: screen;"> ${getTitle(calcPoints(player.stats))} <span style="margin-left:4px;">(${calcPoints(player.stats)} pts)</span></div>
+                        <div class="title" style="display: flex; align-items: center;"><img src="${getRankIcon(calcPoints(player.stats, player.peaks))}" style="width: 22px; height: 22px; object-fit: contain; margin-right: 6px; mix-blend-mode: screen;"> ${getTitle(calcPoints(player.stats, player.peaks))} <span style="margin-left:4px;">(${calcPoints(player.stats, player.peaks)} pts)</span></div>
                     </div>
                 </div>
 
@@ -1989,7 +1999,7 @@
         players.forEach(p => {
             let placements = Object.keys(p.stats || {}).length;
             totalPlacements += placements;
-            let score = calcPoints(p.stats);
+            let score = calcPoints(p.stats, p.peaks);
             if(score > highestScore) highestScore = score;
         });
         document.getElementById('statTotalPlacements').innerText = totalPlacements;
@@ -2004,7 +2014,7 @@
         // Calculate rank
         sortPlayers();
         const rank = players.findIndex(p => p.name === playerName) + 1;
-        const pts = calcPoints(player.stats);
+        const pts = calcPoints(player.stats, player.peaks);
         
         document.getElementById('modalAvatar').src = `https://mc-heads.net/body/${player.name}/200`;
         document.getElementById('modalAvatar').onerror = function() { this.src='https://crafatar.com/renders/body/606e2ff0ed7748429d6ce0927ce6486?size=200'; };
@@ -2040,13 +2050,17 @@
                 let label = isRetired ? `R#${numVal}` : `#${numVal}`;
                 let fontStyle = isRetired ? 'font-style: italic;' : '';
                 
+                let peakRank = (player.peaks && player.peaks[cat.id]) ? player.peaks[cat.id] : null;
+                let tooltipTitle = peakRank ? `Peak #${peakRank}` : label;
+                let tooltipPoints = peakRank ? (POSITION_POINTS[peakRank] || 0) : (POSITION_POINTS[numVal] || 0);
+                
                 tiersHTML += `
                 <div class="modal-tier-icon" onclick="goToBoard('${cat.id}', '${playerName}')">
                     <img src="${cat.icon}" alt="${cat.name}" style="border: 1.5px solid ${color};">
                     <span class="modal-tier-icon-value" style="color: ${color}; background: ${bgAlpha}; border: 1px solid ${borderAlpha}; ${fontStyle}">${label}</span>
                     <div class="tooltip-box">
-                        <div class="tooltip-title" style="color: ${color}; text-shadow: 0 0 5px ${color};">${label}</div>
-                        <div class="tooltip-desc">${POSITION_POINTS[numVal] || 0} points</div>
+                        <div class="tooltip-title" style="color: ${color}; text-shadow: 0 0 5px ${color};">${tooltipTitle}</div>
+                        <div class="tooltip-desc">${tooltipPoints} points</div>
                     </div>
                 </div>`;
             }
