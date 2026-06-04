@@ -1188,7 +1188,7 @@
 
         /* Hide static white border on modal avatar when aura is active */
         .white-fire-aura .avatar-large {
-            border-color: transparent !important;
+            border: none !important;
         }
         
         .white-fire-aura::before {
@@ -1351,6 +1351,7 @@
             margin-bottom: 25px;
         }
         .modal-header-profile img.avatar-large {
+            display: block;
             width: 96px;
             height: 96px;
             border-radius: 50%;
@@ -1893,7 +1894,7 @@
         </div>
         <div style="display: flex; align-items: center; gap: 15px;">
             <div class="rules-btn" onclick="openHistoryPanel()" title="View Match History" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(124, 58, 237, 0.1)); border-color: rgba(124, 58, 237, 0.2);">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> 
+                <img src="https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/master/assets/minecraft/textures/item/writable_book.png" style="width: 22px; height: 22px; image-rendering: pixelated; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5)); transform: translateY(-1px);" alt="History"> 
                 <span style="color: #a78bfa;">History</span>
             </div>
             <div class="rules-btn" onclick="openRulesModal()" title="View Leaderboard Rules">
