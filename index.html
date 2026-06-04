@@ -1269,17 +1269,19 @@
 
         .card-streak-badge {
             position: absolute;
-            top: -4px;
-            right: -4px;
+            top: 0;
+            right: 0;
             background: linear-gradient(90deg, #ff4500, #ff9900);
             color: white;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 4px;
+            padding: 3px 6px;
+            border-radius: 0 6px 0 8px;
             z-index: 10;
-            box-shadow: 0 0 8px rgba(255, 69, 0, 0.5);
+            box-shadow: -2px 2px 8px rgba(255, 69, 0, 0.4);
             font-family: var(--font-number);
+            display: flex;
+            align-items: center;
         }
         .card-streak-badge .white-fire-emoji {
             margin-right: 2px;
