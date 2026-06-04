@@ -1179,63 +1179,40 @@
         .match-status-demoted { color: #f87171; font-weight: bold; }
         .match-status-stayed { color: #94a3b8; font-weight: bold; }
 
-        /* --- White Neon Fire Aura (Manga Style - Pure CSS) --- */
+        /* --- White Neon Fire Aura (Manga Style - Pure CSS + SVG Filter) --- */
         .white-fire-aura {
             position: relative;
             z-index: 1;
             /* Solid background so the fire underneath doesn't bleed into text */
             background-color: #15191e !important; 
-            border: 1px solid rgba(255,255,255,0.9) !important;
-            box-shadow: 0 0 15px rgba(255,255,255,0.4) !important;
+            border: 1px solid rgba(255,255,255,1) !important;
         }
         
-        .white-fire-aura::before, .white-fire-aura::after {
+        .white-fire-aura::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
             border-radius: inherit;
             z-index: -1;
             background: transparent;
             pointer-events: none;
-        }
-
-        .white-fire-aura::before {
+            /* Small, tight box-shadows to serve as the base for the fire */
             box-shadow: 
-                0 -10px 20px 5px rgba(255,255,255,0.8),
-                0 -25px 40px 10px rgba(255,255,255,0.4),
-                0 10px 20px 5px rgba(255,255,255,0.6);
-            animation: animeFireRise 0.6s infinite alternate ease-in-out;
-            filter: blur(4px);
+                0 -8px 12px 3px rgba(255,255,255,1),
+                0 8px 12px 3px rgba(255,255,255,1);
+            /* Apply the SVG filter to turn the blurred shadow into sharp manga flames */
+            filter: url(#manga-fire-filter);
+            animation: mangaFireMove 1.5s infinite alternate ease-in-out;
         }
 
-        .white-fire-aura::after {
-            box-shadow: 
-                -20px -15px 30px 8px rgba(255,255,255,0.7),
-                20px -15px 30px 8px rgba(255,255,255,0.7);
-            animation: animeFireRise2 0.8s infinite alternate-reverse ease-in-out;
-            filter: blur(5px);
-        }
-
-        @keyframes animeFireRise {
-            0% { transform: scale(1.01) translateY(0); opacity: 0.8; }
+        @keyframes mangaFireMove {
+            0% { transform: scale(1) translateY(0); opacity: 0.9; }
             100% { 
-                transform: scale(1.03) translateY(-4px); 
+                transform: scale(1.01) translateY(-2px); 
                 opacity: 1; 
                 box-shadow: 
-                    0 -15px 30px 10px rgba(255,255,255,0.9), 
-                    0 -35px 50px 15px rgba(255,255,255,0.2), 
-                    0 15px 30px 5px rgba(255,255,255,0.8); 
-            }
-        }
-
-        @keyframes animeFireRise2 {
-            0% { transform: scale(1.02) translateX(-2px); opacity: 0.7; }
-            100% { 
-                transform: scale(1.04) translateX(2px) translateY(-3px); 
-                opacity: 0.95; 
-                box-shadow: 
-                    -25px -25px 40px 12px rgba(255,255,255,0.9), 
-                    25px -25px 40px 12px rgba(255,255,255,0.9); 
+                    0 -12px 15px 4px rgba(255,255,255,1), 
+                    0 10px 15px 3px rgba(255,255,255,0.8); 
             }
         }
 
@@ -1587,8 +1564,18 @@
     </style>
 </head>
 <body>
-<div class="bg-mesh"></div>
-<div id="ambientGlow"></div>
+  <div class="bg-mesh"></div>
+  <!-- SVG Manga Fire Filter -->
+  <svg width="0" height="0" style="position: absolute; pointer-events: none;">
+    <filter id="manga-fire-filter" x="-20%" y="-30%" width="140%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04 0.12" numOctaves="2" result="noise">
+          <animate attributeName="baseFrequency" values="0.04 0.12; 0.05 0.15; 0.04 0.12" dur="2s" repeatCount="indefinite" />
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="15" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+      <feColorMatrix in="displaced" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="sharp" />
+    </filter>
+  </svg>
+  <div id="ambientGlow"></div>
 <div id="rankInfoModal" class="modal-overlay" onclick="if(event.target===this) closeRankInfo()">
     <div class="modal-content" style="max-width: 350px; padding: 20px;">
         <div class="modal-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
