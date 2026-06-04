@@ -1030,6 +1030,60 @@
             .stat-label { font-size: 10px; }
         }
 
+        /* --- Rules Button & List --- */
+        .rules-btn {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(10px);
+        }
+        .rules-btn:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+        .rules-btn:active {
+            transform: translateY(0);
+        }
+        .rules-list {
+            margin: 0;
+            padding-left: 20px;
+            list-style-type: none;
+        }
+        .rules-list li {
+            position: relative;
+            margin-bottom: 12px;
+            color: #cbd5e1;
+            font-size: 14.5px;
+            line-height: 1.5;
+        }
+        .rules-list li:last-child {
+            margin-bottom: 0;
+        }
+        .rules-list li::before {
+            content: '•';
+            position: absolute;
+            left: -20px;
+            color: #3b82f6;
+            font-size: 18px;
+            top: -2px;
+        }
+        .rules-list li strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
         /* --- Modal Profile --- */
         .modal-overlay {
             position: fixed;
@@ -1565,18 +1619,55 @@
     </div>
 </div>
 
+<!-- Rules Modal -->
+<div id="rulesModal" class="modal-overlay" onclick="if(event.target===this) closeRulesModal()">
+    <div class="modal-content" style="max-width: 550px;">
+        <button class="modal-close" onclick="closeRulesModal()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        
+        <div class="modal-header-profile" style="margin-bottom: 20px;">
+            <div style="width: 60px; height: 60px; border-radius: 15px; background: linear-gradient(135deg, #2563eb, #7c3aed); display: flex; align-items: center; justify-content: center; margin-bottom: 15px; box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <h2 style="font-size: 24px; margin: 0; color: #fff; letter-spacing: 0.5px;">Leaderboard Rules</h2>
+            <div style="color: #94a3b8; font-size: 14px; margin-top: 5px;">Must read before participating</div>
+        </div>
+
+        <div style="background: rgba(0,0,0,0.3); border-radius: 15px; padding: 20px; border: 1px solid rgba(255,255,255,0.05);">
+            <ul class="rules-list">
+                <li>The fights are <strong>BF4</strong></li>
+                <li>If the players are from different region then <strong>2-2 matches</strong> would be divided</li>
+                <li>You should <strong>not argue over your ping</strong> in different region cause it's equal for both</li>
+                <li><strong>No toxicity</strong> events should be conducted inside a leaderboard fight</li>
+                <li>No one in the server is allowed to <strong>ban players</strong> over a personal leaderboard fight</li>
+                <li>There is a <strong>2 days cooldown</strong> if you <strong>FAILED</strong> a fight</li>
+                <li>There is <strong>no cooldown</strong> if you <strong>WIN</strong> a fight</li>
+                <li>Kits are either <strong>MCTiers</strong> or <strong>PVPTiers</strong> format</li>
+                <li>You should be <strong>active</strong> in the leaderboard</li>
+                <li><strong>Dodging</strong> a leaderboard fight is considered <strong>forfeit</strong></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="header">
         <div onclick="location.reload()" style="cursor: pointer; display: flex; align-items: center; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
             <img src="https://i.postimg.cc/j5B1nLhX/Silver-Arrow-Emblem-with-Wings-removebg-preview.png" alt="Logo" class="site-logo">
             <div class="site-title">ASCENSION LEADERBOARD</div>
         </div>
-        <div class="search-container">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" id="searchInput" placeholder="Search player..." onkeypress="handleSearch(event)">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div class="rules-btn" onclick="openRulesModal()" title="View Leaderboard Rules">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Rules
+            </div>
+            <div class="search-container">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Search player..." onkeypress="handleSearch(event)">
+            </div>
         </div>
     </div>
 
@@ -2074,6 +2165,14 @@
 
     function closePlayerProfile() {
         document.getElementById('playerModal').classList.remove('active');
+    }
+
+    function openRulesModal() {
+        document.getElementById('rulesModal').classList.add('active');
+    }
+
+    function closeRulesModal() {
+        document.getElementById('rulesModal').classList.remove('active');
     }
 
     function goToBoard(categoryId, playerName) {
