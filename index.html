@@ -1191,6 +1191,11 @@
             box-shadow: 0 0 15px rgba(255, 69, 0, 0.2);
             animation: cardFloat 3s infinite alternate ease-in-out;
         }
+
+        /* Hide static white border on modal avatar when aura is active */
+        .white-fire-aura .avatar-large {
+            border-color: transparent !important;
+        }
         
         .white-fire-aura::before {
             content: '';
