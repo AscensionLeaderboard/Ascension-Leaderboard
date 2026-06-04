@@ -40,6 +40,7 @@
             align-items: center;
             min-height: 100vh;
             position: relative;
+            overflow-y: scroll;
         }
         .bg-mesh {
             position: fixed;
@@ -1121,22 +1122,32 @@
             gap: 12px;
         }
         .history-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            transition: transform 0.2s, background 0.2s;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .history-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #dfa539, transparent);
+            border-radius: 4px 0 0 4px;
         }
         .history-card:hover {
             transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            border-color: rgba(255,255,255,0.1);
         }
         .match-row {
             display: flex;
-            align-items: center;
             justify-content: space-between;
         }
         .match-player {
@@ -2492,18 +2503,26 @@
 
             const catName = categories.find(c => c.id === match.leaderboard)?.name || match.leaderboard;
             
-            let winnerScoreText = match.scoreWinner !== undefined ? ` (${match.scoreWinner})` : '';
-            let loserScoreText = match.scoreLoser !== undefined ? ` (${match.scoreLoser})` : '';
+            let winnerScoreText = match.scoreWinner !== undefined ? `<span class="match-score">${match.scoreWinner}</span>` : '';
+            let loserScoreText = match.scoreLoser !== undefined ? `<span class="match-score">${match.scoreLoser}</span>` : '';
 
             html += `
             <div class="history-card">
                 <div class="match-row">
-                    <span class="match-player winner">👑 ${match.winner}${winnerScoreText}</span>
-                    <span class="match-vs">VS</span>
-                    <span class="match-player loser">☠️ ${match.loser}${loserScoreText}</span>
+                    <div class="match-player winner">
+                        <img src="https://mc-heads.net/avatar/${match.winner}/50" class="match-avatar" alt="${match.winner}">
+                        <div>👑 ${match.winner}</div>
+                        ${winnerScoreText}
+                    </div>
+                    <div class="match-vs">VS</div>
+                    <div class="match-player loser">
+                        <img src="https://mc-heads.net/avatar/${match.loser}/50" class="match-avatar" alt="${match.loser}">
+                        <div>☠️ ${match.loser}</div>
+                        ${loserScoreText}
+                    </div>
                 </div>
                 <div class="match-meta">
-                    <span>In <b>${catName}</b> (${timeAgo})</span>
+                    <span><i class="fas fa-clock"></i> In <b>${catName}</b> (${timeAgo})</span>
                     <span class="${actionColorClass}">${match.action}</span>
                 </div>
             </div>`;
