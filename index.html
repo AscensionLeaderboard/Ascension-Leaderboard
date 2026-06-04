@@ -1179,60 +1179,34 @@
         .match-status-demoted { color: #f87171; font-weight: bold; }
         .match-status-stayed { color: #94a3b8; font-weight: bold; }
 
-        /* --- Ultimate Premium Streak Fire (Esports Molten Style) --- */
+        /* --- Clean Premium Streak Fire Glow --- */
         .white-fire-aura {
             position: relative;
             z-index: 1;
-            /* Warm, dark background to contrast the fire */
-            background-color: #110804 !important; 
-            border: 1px solid transparent !important;
-            animation: cardFloat 3s infinite alternate ease-in-out;
-        }
-        
-        .white-fire-aura::before {
-            content: '';
-            position: absolute;
-            /* Border thickness */
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            z-index: -1;
-            border-radius: inherit;
-            /* Animated fire gradient */
-            background: linear-gradient(90deg, 
-                #ff4500, #ff8c00, #ffd700, #ffffff, #ffd700, #ff8c00, #ff4500
-            );
-            background-size: 300% 100%;
-            animation: blazingBorder 1.5s infinite linear;
+            /* Keep original transparent/glass background - NO solid background! */
+            border: 1px solid rgba(255, 100, 0, 0.8) !important;
+            box-shadow: 
+                0 0 15px rgba(255, 69, 0, 0.5),
+                inset 0 0 15px rgba(255, 69, 0, 0.3) !important;
+            animation: cleanStreakGlow 1.5s infinite alternate ease-in-out;
         }
 
-        .white-fire-aura::after {
-            content: '';
-            position: absolute;
-            top: -4px; left: -4px; right: -4px; bottom: -4px;
-            z-index: -2;
-            border-radius: inherit;
-            background: linear-gradient(90deg, 
-                rgba(255,69,0,0.6), rgba(255,215,0,0.6), rgba(255,255,255,0.8), rgba(255,215,0,0.6), rgba(255,69,0,0.6)
-            );
-            background-size: 300% 100%;
-            animation: blazingGlow 1.5s infinite linear, pulseGlow 1s infinite alternate;
-            filter: blur(8px);
-        }
-
-        @keyframes blazingBorder {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 150% 50%; } /* Scroll gradient for flowing fire */
-        }
-        @keyframes blazingGlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 150% 50%; }
-        }
-        @keyframes pulseGlow {
-            0% { opacity: 0.7; transform: scale(1); filter: blur(8px); }
-            100% { opacity: 1; transform: scale(1.02); filter: blur(12px); box-shadow: 0 0 20px rgba(255,69,0,0.5); }
-        }
-        @keyframes cardFloat {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-3px); }
+        @keyframes cleanStreakGlow {
+            0% {
+                box-shadow: 
+                    0 0 10px rgba(255, 69, 0, 0.4),
+                    inset 0 0 10px rgba(255, 69, 0, 0.2);
+                border-color: rgba(255, 100, 0, 0.6) !important;
+                transform: translateY(0);
+            }
+            100% {
+                box-shadow: 
+                    0 0 25px rgba(255, 215, 0, 0.7),
+                    0 0 10px rgba(255, 69, 0, 0.9),
+                    inset 0 0 20px rgba(255, 215, 0, 0.4);
+                border-color: rgba(255, 215, 0, 1) !important;
+                transform: translateY(-2px);
+            }
         }
 
         /* --- Modal Profile --- */
