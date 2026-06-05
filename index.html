@@ -1184,6 +1184,9 @@
             border: 1px solid transparent !important;
             box-shadow: 0 0 15px rgba(255, 69, 0, 0.2);
             animation: cardFloat 3s infinite alternate ease-in-out;
+            /* Hardware acceleration for GPU compositing */
+            transform: translateZ(0);
+            will-change: transform;
         }
 
         /* Hide static white border on modal avatar when aura is active */
@@ -1198,19 +1201,20 @@
             z-index: -1;
             border-radius: inherit;
             padding: 1.5px; /* This sets the border thickness */
+            /* Use a dim orange base instead of transparent to prevent 'black corner' gaps */
             background: conic-gradient(
                 from var(--angle),
-                transparent 0%,
+                rgba(255, 69, 0, 0.15) 0%,
                 #ff4500 15%,
                 #ff9900 22%,
                 #ffffff 25%,
-                transparent 25%,
-                transparent 50%,
+                rgba(255, 69, 0, 0.15) 25%,
+                rgba(255, 69, 0, 0.15) 50%,
                 #ff4500 65%,
                 #ff9900 72%,
                 #ffffff 75%,
-                transparent 75%,
-                transparent 100%
+                rgba(255, 69, 0, 0.15) 75%,
+                rgba(255, 69, 0, 0.15) 100%
             );
             /* Mask to cut out the center so the row background remains transparent */
             -webkit-mask: 
@@ -1227,9 +1231,13 @@
             top: 0; left: 0; right: 0; bottom: 0;
             z-index: -2;
             border-radius: inherit;
-            box-shadow: 0 0 20px rgba(255, 100, 0, 0.4);
-            animation: pulseGlow 1.5s infinite alternate;
+            /* Static box shadow, animation optimized using opacity */
+            box-shadow: 0 0 25px rgba(255, 100, 0, 0.6);
+            animation: pulseGlow 1.5s infinite alternate ease-in-out;
             pointer-events: none;
+            /* Hardware acceleration */
+            transform: translateZ(0);
+            will-change: opacity, transform;
         }
 
         @keyframes spinGlow {
@@ -1238,8 +1246,8 @@
         }
 
         @keyframes pulseGlow {
-            0% { opacity: 0.6; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.01); box-shadow: 0 0 25px rgba(255, 150, 0, 0.6); }
+            0% { opacity: 0.4; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.01); }
         }
 
         @keyframes cardFloat {
