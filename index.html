@@ -1327,7 +1327,13 @@
             transform: scale(0.9);
             opacity: 0;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
+        .modal-content::-webkit-scrollbar { width: 6px; }
+        .modal-content::-webkit-scrollbar-track { background: transparent; }
+        .modal-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
         .modal-overlay.active .modal-content {
             transform: scale(1);
             opacity: 1;
@@ -1935,7 +1941,7 @@
 
 <!-- Player Profile Modal -->
 <div id="playerModal" class="modal-overlay" onclick="if(event.target===this) closePlayerProfile()">
-    <div class="modal-content" style="max-width: 480px; padding: 35px;">
+    <div class="modal-content" style="max-width: 480px; padding: 25px;">
         <button class="modal-close" onclick="closePlayerProfile()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
@@ -2618,6 +2624,19 @@
         const modalContent = document.querySelector('#playerModal .modal-content');
         modalContent.style.borderColor = borderTheme.main;
         modalContent.style.boxShadow = `0 0 50px ${borderTheme.glow}, inset 0 0 30px ${borderTheme.bgAlpha}`;
+        
+        // Custom Profile Background logic
+        if (player.background) {
+            if (player.background.startsWith('http')) {
+                modalContent.style.background = `linear-gradient(to bottom, rgba(13,17,23,0.7), rgba(13,17,23,0.95)), url('${player.background}')`;
+                modalContent.style.backgroundSize = 'cover';
+                modalContent.style.backgroundPosition = 'center';
+            } else {
+                modalContent.style.background = `linear-gradient(135deg, ${player.background} 0%, #0d1117 100%)`;
+            }
+        } else {
+            modalContent.style.background = '#0d1117'; // default
+        }
         
         const avatarEl = document.getElementById('modalAvatar');
         avatarEl.src = `https://mc-heads.net/body/${player.name}/200`;
