@@ -1901,8 +1901,8 @@
                 }
             });
             
-            document.addEventListener('mousedown', (e) => {
-                const target = e.target.closest('.player-card, .board-player-card, .tab, .rules-btn, .tier-item, .modal-close, .modal-tier-icon, #intro-splash, .close-history-btn');
+            document.addEventListener('click', (e) => {
+                const target = e.target.closest('.player-row, .player-card, .board-player-card, .tab, .rules-btn, .tier-item, .modal-close, .modal-tier-icon, #intro-splash, .close-history-btn');
                 if (target) {
                     window.uiAudio.init();
                     if (target.classList.contains('modal-close') || target.classList.contains('close-history-btn')) {
