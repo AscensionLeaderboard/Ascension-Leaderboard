@@ -2620,6 +2620,15 @@
             tierTheme = wlimdexTheme;
             borderTheme = wlimdexTheme;
         }
+
+        // Custom Neon Border override from database
+        if (player.border) {
+            borderTheme = {
+                main: player.border,
+                glow: `${player.border}80`, // 50% opacity
+                bgAlpha: `${player.border}1A` // 10% opacity
+            };
+        }
         
         const modalContent = document.querySelector('#playerModal .modal-content');
         modalContent.style.borderColor = borderTheme.main;
