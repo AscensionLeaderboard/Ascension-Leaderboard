@@ -2239,6 +2239,16 @@
         return 'Rookie';
     }
 
+    function getThemeColor(points) {
+        if (points >= 80) return { main: '#ff2a2a', glow: 'rgba(255, 42, 42, 0.4)', bgAlpha: 'rgba(255, 42, 42, 0.05)' }; // Grandmaster
+        if (points >= 50) return { main: '#d500f9', glow: 'rgba(213, 0, 249, 0.4)', bgAlpha: 'rgba(213, 0, 249, 0.05)' }; // Master
+        if (points >= 30) return { main: '#ffc107', glow: 'rgba(255, 193, 7, 0.4)', bgAlpha: 'rgba(255, 193, 7, 0.05)' }; // Ace
+        if (points >= 15) return { main: '#00e5ff', glow: 'rgba(0, 229, 255, 0.4)', bgAlpha: 'rgba(0, 229, 255, 0.05)' }; // Specialist
+        if (points >= 10) return { main: '#00e676', glow: 'rgba(0, 230, 118, 0.4)', bgAlpha: 'rgba(0, 230, 118, 0.05)' }; // Cadet
+        if (points >= 5)  return { main: '#b0bec5', glow: 'rgba(176, 190, 197, 0.4)', bgAlpha: 'rgba(176, 190, 197, 0.05)' }; // Novice
+        return { main: '#cd7f32', glow: 'rgba(205, 127, 50, 0.4)', bgAlpha: 'rgba(205, 127, 50, 0.05)' }; // Rookie
+    }
+
     function getRankIcon(points) {
         if (points >= 80) return 'https://i.postimg.cc/Y2RdcHbH/combat-grandmaster.webp';
         if (points >= 50) return 'https://i.postimg.cc/TPbtB5HD/combat-master.webp';
@@ -2588,13 +2598,30 @@
         const rank = players.findIndex(p => p.name === playerName) + 1;
         const pts = calcPoints(player.stats, player.peaks);
         
-        document.getElementById('modalAvatar').src = `https://mc-heads.net/body/${player.name}/200`;
-        document.getElementById('modalAvatar').onerror = function() { this.src='https://crafatar.com/renders/body/606e2ff0ed7748429d6ce0927ce6486?size=200'; };
-        document.getElementById('modalName').textContent = player.name;
+        // --- Apply Thematic Profile Styling ---
+        const theme = getThemeColor(pts);
+        
+        const modalContent = document.querySelector('#playerModal .modal-content');
+        modalContent.style.borderColor = theme.main;
+        modalContent.style.boxShadow = `0 0 50px ${theme.glow}, inset 0 0 30px ${theme.bgAlpha}`;
+        
+        const avatarEl = document.getElementById('modalAvatar');
+        avatarEl.src = `https://mc-heads.net/body/${player.name}/200`;
+        avatarEl.onerror = function() { this.src='https://crafatar.com/renders/body/606e2ff0ed7748429d6ce0927ce6486?size=200'; };
+        avatarEl.style.borderColor = theme.main;
+        avatarEl.style.boxShadow = `0 0 25px ${theme.glow}`;
+        
+        const nameEl = document.getElementById('modalName');
+        nameEl.textContent = player.name;
+        nameEl.style.textShadow = `0 0 15px ${theme.glow}`;
         
         const titleEl = document.getElementById('modalTitle');
         const iconUrl = getRankIcon(pts);
         titleEl.innerHTML = `<img src="${iconUrl}" style="width: 28px; height: 28px; object-fit: contain; margin-right: 8px; mix-blend-mode: screen;"> ${getTitle(pts)}`;
+        titleEl.style.borderColor = theme.glow;
+        titleEl.style.background = theme.bgAlpha;
+        titleEl.style.color = theme.main;
+        titleEl.style.textShadow = `0 0 10px ${theme.glow}`;
         
         document.getElementById('modalRegion').textContent = player.region;
         document.getElementById('modalNamemc').href = `https://namemc.com/profile/${player.name}`;
