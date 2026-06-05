@@ -1733,10 +1733,12 @@
 <body>
     <!-- Epic Intro Splash Screen -->
     <div id="intro-splash" onclick="dismissSplash()">
-        <img src="https://i.postimg.cc/j5B1nLhX/Silver-Arrow-Emblem-with-Wings-removebg-preview.png" id="splashLogo" class="splash-logo">
-        <div class="splash-text" id="splashText">ASCENSION</div>
-        <div class="splash-continue-wrapper" id="splashContinue">
-            <span class="splash-continue-text">Click to continue</span>
+        <div id="splashInner" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%;">
+            <img src="https://i.postimg.cc/j5B1nLhX/Silver-Arrow-Emblem-with-Wings-removebg-preview.png" id="splashLogo" class="splash-logo">
+            <div class="splash-text" id="splashText">ASCENSION</div>
+            <div class="splash-continue-wrapper" id="splashContinue">
+                <span class="splash-continue-text">Click to continue</span>
+            </div>
         </div>
     </div>
 
@@ -2069,35 +2071,20 @@
         if (splash && !splash.classList.contains('dismissing')) {
             splash.classList.add('dismissing');
             
-            const cont = document.getElementById('splashContinue');
-            const logo = document.getElementById('splashLogo');
-            const text = document.getElementById('splashText');
+            const inner = document.getElementById('splashInner');
 
-            if (cont) {
-                cont.style.animation = 'none';
-                cont.offsetHeight; /* Trigger reflow to restart animation */
-                cont.style.animation = '';
-                cont.classList.add('pop-out');
-            }
-
-            if (text) {
-                text.style.animation = 'none';
-                setTimeout(() => text.classList.add('pop-out'), 100);
-            }
-
-            if (logo) {
-                logo.style.animation = 'none';
-                setTimeout(() => logo.classList.add('pop-out'), 250);
+            if (inner) {
+                inner.classList.add('pop-out');
             }
 
             setTimeout(() => {
-                splash.style.transition = 'opacity 0.5s ease';
+                splash.style.transition = 'opacity 0.4s ease';
                 splash.style.opacity = '0';
                 setTimeout(() => {
                     splash.style.display = 'none';
                     document.body.style.overflow = ''; 
-                }, 500);
-            }, 500);
+                }, 400);
+            }, 200);
         }
     }
 
