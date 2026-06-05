@@ -1630,6 +1630,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            pointer-events: none;
         }
         
         .splash-logo {
@@ -1902,6 +1903,7 @@
             });
             
             document.addEventListener('click', (e) => {
+                dismissSplash();
                 const target = e.target.closest('.player-row, .player-card, .board-player-card, .tab, .rules-btn, .tier-item, .modal-close, .modal-tier-icon, #intro-splash, .close-history-btn');
                 if (target) {
                     window.uiAudio.init();
@@ -1923,7 +1925,7 @@
         <div class="noise-overlay"></div>
     </div>
     <!-- Epic Intro Splash Screen -->
-    <div id="intro-splash" onclick="dismissSplash()">
+    <div id="intro-splash">
         <div id="splashInner" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%;">
             <img src="https://i.postimg.cc/j5B1nLhX/Silver-Arrow-Emblem-with-Wings-removebg-preview.png" id="splashLogo" class="splash-logo">
             <div class="splash-text" id="splashText">ASCENSION</div>
