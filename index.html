@@ -1983,16 +1983,13 @@
 
                     const bust = row.querySelector('.player-bust, .avatar');
                     if (bust) {
-                        const bustRotateY = ((x - centerX) / centerX) * 25; 
-                        const bustRotateX = ((y - centerY) / centerY) * -15; 
-                        
-                        const bustX = ((x - centerX) / centerX) * 5; 
-                        const bustY = ((y - centerY) / centerY) * 5;
+                        const bustX = ((x - centerX) / centerX) * 8; 
+                        const bustY = ((y - centerY) / centerY) * 8;
                         
                         if (bust.classList.contains('player-bust')) {
-                            bust.style.transform = `translateX(calc(-50% + ${bustX}px)) translateY(${bustY}px) scale(1.15) perspective(400px) rotateY(${bustRotateY}deg) rotateX(${bustRotateX}deg)`;
+                            bust.style.transform = `translateX(calc(-50% + ${bustX}px)) translateY(${bustY}px) scale(1.15)`;
                         } else {
-                            bust.style.transform = `translateX(${bustX}px) translateY(${bustY}px) scale(1.15) perspective(400px) rotateY(${bustRotateY}deg) rotateX(${bustRotateX}deg)`;
+                            bust.style.transform = `translateX(${bustX}px) translateY(${bustY}px) scale(1.15)`;
                         }
                     }
                     
