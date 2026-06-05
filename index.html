@@ -2484,7 +2484,8 @@
             else if (rank === 2) rankClass = 'rank-2';
             else if (rank === 3) rankClass = 'rank-3';
 
-            let filledTiersHTML = '';
+            let activeTiersHTML = '';
+            let retiredTiersHTML = '';
             let emptyTiersHTML = '';
             
             categories.forEach(cat => {
@@ -2500,6 +2501,11 @@
                     let color = numVal === 1 ? '#dfa539' : numVal === 2 ? '#aabac6' : numVal === 3 ? '#be733f' : '#64748b';
                     let bgAlpha = numVal === 1 ? 'linear-gradient(rgba(223, 165, 57, 0.15), rgba(223, 165, 57, 0.15)), var(--card-bg)' : numVal === 2 ? 'linear-gradient(rgba(170, 186, 198, 0.15), rgba(170, 186, 198, 0.15)), var(--card-bg)' : numVal === 3 ? 'linear-gradient(rgba(190, 115, 63, 0.15), rgba(190, 115, 63, 0.15)), var(--card-bg)' : 'linear-gradient(rgba(100, 116, 139, 0.15), rgba(100, 116, 139, 0.15)), var(--card-bg)';
                     let borderAlpha = numVal === 1 ? 'rgba(223, 165, 57, 0.3)' : numVal === 2 ? 'rgba(170, 186, 198, 0.3)' : numVal === 3 ? 'rgba(190, 115, 63, 0.3)' : 'rgba(100, 116, 139, 0.3)';
+                    
+                    let actualBorderColor = isRetired ? '#64748b' : color;
+                    let actualBgAlpha = isRetired ? 'linear-gradient(rgba(100, 116, 139, 0.15), rgba(100, 116, 139, 0.15)), var(--card-bg)' : bgAlpha;
+                    let actualBorderAlpha = isRetired ? 'rgba(100, 116, 139, 0.3)' : borderAlpha;
+
                     let label = isRetired ? `R#${numVal}` : `#${numVal}`;
                     let fontStyle = isRetired ? 'font-style: italic;' : '';
 
@@ -2508,15 +2514,21 @@
                     let tooltipPoints = peakRank ? (POSITION_POINTS[peakRank] || 0) : (POSITION_POINTS[numVal] || 0);
                     let tooltipColor = peakRank === 1 ? '#dfa539' : peakRank === 2 ? '#aabac6' : peakRank === 3 ? '#be733f' : peakRank ? '#64748b' : color;
 
-                    filledTiersHTML += `
+                    let tierHTML = `
                     <div class="tier-item" onclick="goToBoard('${cat.id}', '${player.name}')">
-                        <img src="${cat.icon}" alt="${cat.name}" style="border: 1.5px solid ${color};">
-                        <span class="tier-icon-value" style="color: ${color}; background: ${bgAlpha}; border: 1px solid ${borderAlpha}; ${fontStyle}">${label}</span>
+                        <img src="${cat.icon}" alt="${cat.name}" style="border: 1.5px solid ${actualBorderColor};">
+                        <span class="tier-icon-value" style="color: ${color}; text-shadow: 0 0 5px ${color}; background: ${actualBgAlpha}; border: 1px solid ${actualBorderAlpha}; ${fontStyle}">${label}</span>
                         <div class="tooltip-box">
                             <div class="tooltip-title" style="color: ${tooltipColor}; text-shadow: 0 0 5px ${tooltipColor};">${tooltipTitle}</div>
                             <div class="tooltip-desc">${tooltipPoints} points</div>
                         </div>
                     </div>`;
+
+                    if (isRetired) {
+                        retiredTiersHTML += tierHTML;
+                    } else {
+                        activeTiersHTML += tierHTML;
+                    }
                 } else {
                     emptyTiersHTML += `
                     <div class="tier-item empty-tier" style="cursor: default;">
@@ -2525,7 +2537,7 @@
                     </div>`;
                 }
             });
-            let tiersHTML = filledTiersHTML + emptyTiersHTML;
+            let tiersHTML = activeTiersHTML + retiredTiersHTML + emptyTiersHTML;
 
             let rowClassExtra = '';
             if (rank === 1) rowClassExtra = 'rank-row-1';
@@ -2816,7 +2828,8 @@
         }
 
         // Tiers / Positions
-        let tiersHTML = '';
+        let activeTiersHTML = '';
+        let retiredTiersHTML = '';
         categories.forEach(cat => {
             let val = player.stats[cat.id];
             if(val) {
@@ -2838,15 +2851,14 @@
 
                 let label = isRetired ? `R#${numVal}` : `#${numVal}`;
                 let fontStyle = isRetired ? 'font-style: italic;' : '';
-                let orderStyle = isRetired ? 'order: 1;' : 'order: 0;';
                 
                 let peakRank = (player.peaks && player.peaks[cat.id]) ? player.peaks[cat.id] : null;
                 let tooltipTitle = peakRank ? `Peak #${peakRank}` : label;
                 let tooltipPoints = peakRank ? (POSITION_POINTS[peakRank] || 0) : (POSITION_POINTS[numVal] || 0);
                 let tooltipColor = peakRank === 1 ? '#dfa539' : peakRank === 2 ? '#aabac6' : peakRank === 3 ? '#be733f' : peakRank ? '#64748b' : color;
                 
-                tiersHTML += `
-                <div class="modal-tier-icon" onclick="goToBoard('${cat.id}', '${playerName}')" style="${orderStyle}">
+                let tierHTML = `
+                <div class="modal-tier-icon" onclick="goToBoard('${cat.id}', '${playerName}')">
                     <img src="${cat.icon}" alt="${cat.name}" style="border: 1.5px solid ${actualBorderColor};">
                     <span class="modal-tier-icon-value" style="color: ${color}; text-shadow: 0 0 5px ${color}; background: ${actualBgAlpha}; border: 1px solid ${actualBorderAlpha}; ${fontStyle}">${label}</span>
                     <div class="tooltip-box">
@@ -2854,9 +2866,15 @@
                         <div class="tooltip-desc">${tooltipPoints} points</div>
                     </div>
                 </div>`;
+
+                if (isRetired) {
+                    retiredTiersHTML += tierHTML;
+                } else {
+                    activeTiersHTML += tierHTML;
+                }
             }
         });
-        document.getElementById('modalTiers').innerHTML = tiersHTML;
+        document.getElementById('modalTiers').innerHTML = activeTiersHTML + retiredTiersHTML;
 
         document.getElementById('playerModal').classList.add('active');
     }
