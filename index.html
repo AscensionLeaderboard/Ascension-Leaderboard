@@ -306,13 +306,13 @@
         body.light-mode .rules-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: #555; }
         body.light-mode .rules-btn:hover { background: rgba(0,0,0,0.1); color: #1a1a2e; }
 
-        /* Fix weapons turning black: Revert the invert trick. Since they are JPGs with solid black backgrounds, they will render as dark circular badges in light mode unless replaced with transparent PNGs. */
+        /* Remove black JPG background using SVG Chroma Key filter and add drop-shadow for visibility on white background! ("cắt nền" 100% success without blackening weapons) */
         body.light-mode img[style*="mix-blend-mode: screen"],
         body.light-mode .tier-item img,
         body.light-mode .title img {
             mix-blend-mode: normal !important;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)) !important;
-            border-radius: 50%;
+            filter: url(#unblack) drop-shadow(0 2px 4px rgba(0,0,0,0.4)) !important;
+            border-radius: 0 !important;
         }
 
         /* Remove icon background circles globally as requested, while keeping padding/border width to maintain perfect alignment ("ngay hàng") */
@@ -2302,6 +2302,17 @@
     </script>
 </head>
 <body>
+    <!-- SVG Filter for Light Mode JPG transparency -->
+    <svg width="0" height="0" style="position: absolute; pointer-events: none;">
+        <filter id="unblack">
+            <feColorMatrix type="matrix" values="
+                1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                7 7 7 0 0
+            " />
+        </filter>
+    </svg>
     <!-- Custom Cursor -->
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="cursor-ring" id="cursorRing"></div>
