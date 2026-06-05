@@ -42,29 +42,7 @@
             position: relative;
             overflow-y: scroll;
         }
-        .bg-mesh {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -2;
-            background-image: 
-                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-                radial-gradient(at 50% 0%, hsla(225,39%,10%,1) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(339,20%,10%,1) 0, transparent 50%);
-        }
-        #ambientGlow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: -1;
-            background: radial-gradient(circle 800px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(200, 225, 255, 0.05), transparent 80%);
-            transition: background 0.1s;
-        }
+
 
         .container {
             max-width: 1350px;
@@ -1837,8 +1815,7 @@
         <span id="toastMessage">Player not found!</span>
     </div>
 
-  <div class="bg-mesh"></div>
-  <div id="ambientGlow"></div>
+
 <div id="rankInfoModal" class="modal-overlay" onclick="if(event.target===this) closeRankInfo()">
     <div class="modal-content" style="max-width: 350px; padding: 20px;">
         <div class="modal-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
@@ -2915,14 +2892,7 @@
         }
     }
 
-    // --- Interactive Ambient Glow ---
-    document.addEventListener('mousemove', e => {
-        const glow = document.getElementById('ambientGlow');
-        if(glow) {
-            glow.style.setProperty('--mouse-x', e.clientX + 'px');
-            glow.style.setProperty('--mouse-y', e.clientY + 'px');
-        }
-    });
+
 
     // --- Rank Info Modal ---
     function openRankInfo() {
