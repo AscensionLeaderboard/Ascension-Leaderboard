@@ -1962,6 +1962,8 @@
                     lastHoveredRow3D.style.borderColor = '';
                     const glare = lastHoveredRow3D.querySelector('.glare');
                     if (glare) glare.style.opacity = '0';
+                    const bust = lastHoveredRow3D.querySelector('.player-bust');
+                    if (bust) bust.style.transform = '';
                 }
 
                 if (row) {
@@ -1972,12 +1974,19 @@
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
                     
-                    const rotateX = ((y - centerY) / centerY) * -4; 
-                    const rotateY = ((x - centerX) / centerX) * 4;
+                    const rotateX = ((y - centerY) / centerY) * -1.5; 
+                    const rotateY = ((x - centerX) / centerX) * 1.5;
                     
-                    row.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.02)`;
+                    row.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
                     row.style.boxShadow = `0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.1)`;
                     row.style.borderColor = `rgba(255,255,255,0.4)`;
+
+                    const bust = row.querySelector('.player-bust');
+                    if (bust) {
+                        const bustX = ((x - centerX) / centerX) * 15; 
+                        const bustY = ((y - centerY) / centerY) * 15;
+                        bust.style.transform = `translateX(calc(-50% + ${bustX}px)) translateY(${bustY}px) scale(1.15)`;
+                    }
                     
                     let glare = row.querySelector('.glare');
                     if (!glare) {
