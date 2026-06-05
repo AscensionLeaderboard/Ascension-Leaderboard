@@ -29,8 +29,15 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body::-webkit-scrollbar {
+        *::-webkit-scrollbar {
             display: none;
+            width: 0;
+            background: transparent;
+        }
+
+        html, body {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
 
         body {
@@ -44,11 +51,8 @@
             align-items: center;
             min-height: 100vh;
             position: relative;
-            overflow-y: scroll;
             user-select: none;
             -webkit-user-select: none;
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
         }
 
         body.custom-cursor-active, body.custom-cursor-active * {
