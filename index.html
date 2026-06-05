@@ -1643,7 +1643,25 @@
             align-items: center;
             justify-content: center;
             transform-origin: center;
-            animation: splashFadeOut 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) 3.2s forwards;
+            cursor: pointer;
+        }
+        
+        .splash-fade-out {
+            animation: splashFadeOut 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+            pointer-events: none;
+        }
+
+        .splash-continue {
+            position: absolute;
+            bottom: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 6px;
+            color: rgba(255, 255, 255, 0.6);
+            opacity: 0;
+            animation: continueEntrance 1s ease-out 2.5s forwards,
+                       continuePulse 1.5s ease-in-out 3.5s infinite alternate;
+            text-transform: uppercase;
         }
         
         .splash-logo {
@@ -1689,13 +1707,24 @@
             40% { transform: scale(1.05); opacity: 1; border-radius: 20px; }
             100% { opacity: 0; visibility: hidden; transform: scale(0); border-radius: 50%; }
         }
+
+        @keyframes continueEntrance {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 0.6; transform: translateY(0); }
+        }
+
+        @keyframes continuePulse {
+            0% { opacity: 0.3; text-shadow: 0 0 5px rgba(255,255,255,0); }
+            100% { opacity: 1; text-shadow: 0 0 15px rgba(255,255,255,0.8); }
+        }
     </style>
 </head>
 <body>
     <!-- Epic Intro Splash Screen -->
-    <div id="intro-splash">
+    <div id="intro-splash" onclick="dismissSplash()">
         <img src="https://i.postimg.cc/j5B1nLhX/Silver-Arrow-Emblem-with-Wings-removebg-preview.png" class="splash-logo">
         <div class="splash-text">ASCENSION</div>
+        <div class="splash-continue">Click to continue</div>
     </div>
 
   <div class="bg-mesh"></div>
@@ -2020,6 +2049,19 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script>
+    // --- Splash Screen Logic ---
+    document.body.style.overflow = 'hidden'; // Hide scrollbar initially
+    function dismissSplash() {
+        const splash = document.getElementById('intro-splash');
+        if (splash) {
+            splash.classList.add('splash-fade-out');
+            setTimeout(() => {
+                document.body.style.overflow = ''; // Restore original scroll behavior
+                splash.style.display = 'none';
+            }, 600); // Wait for the pop animation to almost finish
+        }
+    }
+
     // Image URLs from postimg.cc
     const IMG = {
         overall: 'https://i.postimg.cc/Qxw2KYfG/overall.jpg',
