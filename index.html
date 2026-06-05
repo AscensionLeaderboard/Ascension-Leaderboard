@@ -97,12 +97,17 @@
             transform: translate(-50%, -50%);
         }
 
-        /* --- Zen Mode Toggle --- */
-        .zen-toggle {
+        /* --- Toolbar Buttons --- */
+        .toolbar-btns {
             position: fixed;
             top: 20px;
             left: 20px;
             z-index: 100000;
+            display: flex;
+            gap: 8px;
+        }
+
+        .toolbar-btn {
             width: 42px;
             height: 42px;
             border-radius: 50%;
@@ -116,7 +121,7 @@
             transition: all 0.3s ease;
         }
 
-        .zen-toggle:hover {
+        .toolbar-btn:hover {
             background: rgba(255,255,255,0.12);
             color: #fff;
             border-color: rgba(255,255,255,0.3);
@@ -124,19 +129,20 @@
             transform: scale(1.1);
         }
 
-        .zen-toggle.active {
+        .toolbar-btn.active {
             background: rgba(167,139,250,0.2);
             border-color: rgba(167,139,250,0.5);
             color: #a78bfa;
             box-shadow: 0 0 25px rgba(167,139,250,0.4);
         }
 
+        /* --- Zen Mode --- */
         body.zen-mode {
             padding: 0;
             overflow: hidden;
         }
 
-        body.zen-mode > *:not(.zen-toggle):not(.cursor-dot):not(.cursor-ring):not(.cursor-trail):not(.universe-bg):not(#intro-splash) {
+        body.zen-mode > *:not(.toolbar-btns):not(.cursor-dot):not(.cursor-ring):not(.cursor-trail):not(.universe-bg):not(#intro-splash) {
             opacity: 0 !important;
             pointer-events: none !important;
             transition: opacity 0.5s ease !important;
@@ -149,6 +155,109 @@
         body.zen-mode #mainBgParticles {
             pointer-events: auto !important;
         }
+
+        /* --- Light Mode --- */
+        body.light-mode {
+            background-color: #f0f0f5;
+            color: #1a1a2e;
+        }
+
+        body.light-mode .container { color: #1a1a2e; }
+
+        body.light-mode .player-row {
+            background-color: #ffffff;
+            border-color: rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        body.light-mode .player-row:hover {
+            background: linear-gradient(135deg, #f8f8ff 0%, #e8e8f0 100%);
+            border-color: rgba(100,100,200,0.4);
+            box-shadow: 0 0 12px rgba(100,100,200,0.2), 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        body.light-mode .name-wrapper h3 { color: #1a1a2e; }
+        body.light-mode .title { color: #666; }
+        body.light-mode .title span { color: #333; }
+
+        body.light-mode .tabs {
+            background-color: #ffffff;
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        body.light-mode .tab { color: #888; }
+        body.light-mode .tab.active, body.light-mode .tab:hover { 
+            background-color: #f0f0f5; color: #1a1a2e; 
+        }
+        body.light-mode .tab::after { background: #1a1a2e; }
+
+        body.light-mode .leaderboard-header { color: #999; border-bottom-color: rgba(0,0,0,0.1); }
+
+        body.light-mode .board-col {
+            background: #ffffff;
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        body.light-mode .board-player-card {
+            background: #f5f5fa;
+            border-color: rgba(0,0,0,0.08);
+        }
+        body.light-mode .board-player-card:hover {
+            background: #eeeef5;
+            border-color: rgba(100,100,200,0.4);
+        }
+        body.light-mode .board-player-card .name { color: #1a1a2e; }
+
+        body.light-mode .region { background-color: #e8e8f0; color: #555; border-color: #ccc; }
+
+        body.light-mode .search-container input {
+            background: rgba(0,0,0,0.04);
+            border-color: rgba(0,0,0,0.12);
+            color: #1a1a2e;
+        }
+        body.light-mode .search-container input:focus {
+            background: rgba(0,0,0,0.06);
+            border-color: rgba(0,0,0,0.2);
+        }
+        body.light-mode .search-icon { color: #999; }
+
+        body.light-mode .toolbar-btn {
+            border-color: rgba(0,0,0,0.15);
+            background: rgba(255,255,255,0.7);
+            color: rgba(0,0,0,0.5);
+        }
+        body.light-mode .toolbar-btn:hover {
+            background: rgba(255,255,255,0.9);
+            color: #1a1a2e;
+            border-color: rgba(0,0,0,0.2);
+        }
+
+        body.light-mode .cursor-dot {
+            background: #1a1a2e;
+            box-shadow: 0 0 6px #1a1a2e, 0 0 15px rgba(100,100,200,0.4);
+        }
+        body.light-mode .cursor-ring {
+            border-color: rgba(0,0,0,0.2);
+        }
+        body.light-mode .cursor-trail {
+            background: rgba(100,100,200,0.4);
+        }
+
+        body.light-mode .glare { mix-blend-mode: soft-light; }
+
+        body.light-mode .rank-number { 
+            color: #ffffff; 
+        }
+
+        body.light-mode .site-title {
+            background: linear-gradient(180deg, #1a1a2e 0%, #444 50%, #666 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        body.light-mode .header { border-bottom-color: rgba(0,0,0,0.1); }
+        body.light-mode .rules-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: #555; }
+        body.light-mode .rules-btn:hover { background: rgba(0,0,0,0.1); color: #1a1a2e; }
 
         @media (max-width: 768px) {
             .cursor-dot, .cursor-ring, .cursor-trail { display: none !important; }
@@ -2130,20 +2239,38 @@
     <div class="cursor-dot" id="cursorDot"></div>
     <div class="cursor-ring" id="cursorRing"></div>
 
-    <!-- Zen Mode Toggle -->
-    <button id="zenToggle" class="zen-toggle" title="Zen Mode - Hide UI">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-    </button>
+    <!-- Toolbar Buttons -->
+    <div class="toolbar-btns">
+        <!-- Light/Dark Mode Toggle -->
+        <button id="themeToggle" class="toolbar-btn" title="Light / Dark Mode">
+            <svg id="themeIconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg id="themeIconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="display:none;">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+        </button>
+
+        <!-- Zen Mode Toggle (Hide UI) -->
+        <button id="zenToggle" class="toolbar-btn" title="Zen Mode - Hide UI">
+            <svg id="zenIconEye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <svg id="zenIconEyeOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="display:none;">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                <line x1="1" y1="1" x2="23" y2="23"></line>
+            </svg>
+        </button>
+    </div>
 
     <div class="universe-bg">
         <div id="mainBgParticles" style="position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1;"></div>
@@ -3488,18 +3615,41 @@
         });
     </script>
 
-    <!-- Zen Mode Toggle -->
+    <!-- Toolbar Toggle Scripts -->
     <script>
+    // Light/Dark Mode Toggle
+    document.getElementById('themeToggle').addEventListener('click', function() {
+        this.classList.toggle('active');
+        document.body.classList.toggle('light-mode');
+        
+        const moonIcon = document.getElementById('themeIconMoon');
+        const sunIcon = document.getElementById('themeIconSun');
+        if (document.body.classList.contains('light-mode')) {
+            moonIcon.style.display = 'none';
+            sunIcon.style.display = 'block';
+        } else {
+            moonIcon.style.display = 'block';
+            sunIcon.style.display = 'none';
+        }
+    });
+
+    // Zen Mode Toggle
     document.getElementById('zenToggle').addEventListener('click', function() {
         this.classList.toggle('active');
         document.body.classList.toggle('zen-mode');
         
-        // Make background particles interactive in zen mode
+        const eyeIcon = document.getElementById('zenIconEye');
+        const eyeOffIcon = document.getElementById('zenIconEyeOff');
         const particles = document.getElementById('mainBgParticles');
+        
         if (document.body.classList.contains('zen-mode')) {
+            eyeIcon.style.display = 'none';
+            eyeOffIcon.style.display = 'block';
             particles.style.pointerEvents = 'auto';
             particles.style.zIndex = '10';
         } else {
+            eyeIcon.style.display = 'block';
+            eyeOffIcon.style.display = 'none';
             particles.style.pointerEvents = 'none';
             particles.style.zIndex = '1';
         }
