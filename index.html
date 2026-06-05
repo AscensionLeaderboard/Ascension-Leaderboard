@@ -1690,9 +1690,10 @@
 
         .splash-continue:hover {
             transform: scale(1.1);
-            color: #ffffff;
-            text-shadow: 0 0 20px rgba(255,255,255,1);
-            animation-play-state: paused;
+            color: #ffffff !important;
+            text-shadow: 0 0 20px rgba(255,255,255,1) !important;
+            opacity: 1 !important;
+            animation: none !important;
         }
 
         @keyframes letterEntrance {
@@ -1726,8 +1727,8 @@
         }
         
         @keyframes popOut {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(0); opacity: 0; }
+            0% { transform: scale(1) translateY(0); opacity: 1; }
+            100% { transform: scale(0) translateY(-200px); opacity: 0; }
         }
     </style>
 </head>
