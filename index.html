@@ -306,10 +306,10 @@
         body.light-mode .rules-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: #555; }
         body.light-mode .rules-btn:hover { background: rgba(0,0,0,0.1); color: #1a1a2e; }
 
-        /* Remove black JPG background using SVG Chroma Key filter and add drop-shadow for visibility on white background! ("cắt nền" 100% success without blackening weapons) */
-        body.light-mode img[style*="mix-blend-mode: screen"],
-        body.light-mode .tier-item img,
-        body.light-mode .title img {
+        /* Remove black JPG background globally using SVG Chroma Key filter! ("cắt nền" 100% success for both Dark and Light mode) */
+        img[style*="mix-blend-mode: screen"],
+        .tier-item img,
+        .title img {
             mix-blend-mode: normal !important;
             filter: url(#unblack) drop-shadow(0 2px 4px rgba(0,0,0,0.4)) !important;
             border-radius: 0 !important;
@@ -2734,12 +2734,28 @@
         const configs = {
             snow: { background: { color: "transparent" }, particles: { color: { value: "#ffffff" }, move: { direction: "bottom", enable: true, speed: 1.5, straight: false, outModes: { default: "out" } }, number: { value: 200 }, opacity: { value: { min: 0.2, max: 0.8 }, animation: { enable: true, speed: 0.5, sync: false } }, shape: { type: "circle" }, size: { value: { min: 1, max: 5 } }, wobble: { enable: true, distance: 15, speed: 20 } } },
             embers: { background: { color: "transparent" }, particles: { color: { value: ["#ff5e00", "#ff0000", "#ffcc00"] }, move: { direction: "top", enable: true, speed: { min: 2, max: 6 }, random: true, outModes: { default: "out" } }, number: { value: 120 }, opacity: { value: { min: 0.1, max: 0.9 }, animation: { enable: true, speed: 1.5, sync: false } }, shape: { type: "circle" }, size: { value: { min: 1, max: 5 }, animation: { enable: true, speed: 5, sync: false } }, wobble: { enable: true, distance: 5, speed: 10 } } },
-            stars: { background: { color: "transparent" }, particles: { color: { value: "#ffffff" }, move: { direction: "none", enable: true, speed: 0.1 }, number: { value: 250 }, opacity: { value: { min: 0.1, max: 1 }, animation: { enable: true, speed: 1.5, sync: false } }, shape: { type: "star" }, size: { value: { min: 1, max: 3 } } } },
+            stars: { background: { color: "transparent" }, particles: { color: { value: "#ffffff" }, move: { direction: "bottom-left", enable: true, speed: { min: 15, max: 25 }, straight: true, outModes: { default: "out" } }, number: { value: 20 }, opacity: { value: { min: 0.1, max: 1 }, animation: { enable: true, speed: 1, sync: false } }, shape: { type: "line" }, size: { value: { min: 20, max: 60 } }, stroke: { width: 1.5, color: "#ffffff" } } },
             matrix: { background: { color: "transparent" }, particles: { color: { value: "#00ff00" }, move: { direction: "bottom", enable: true, speed: 5, straight: true, outModes: { default: "out" } }, number: { value: 100 }, opacity: { value: { min: 0.2, max: 0.8 }, animation: { enable: true, speed: 2, sync: false } }, shape: { type: "char", character: { value: ["0", "1", "A", "Z", "X", "Y"], font: "monospace", weight: "bold" } }, size: { value: 16 } } },
             bubbles: { background: { color: "transparent" }, particles: { color: { value: themeColor || "#ffffff" }, move: { direction: "top", enable: true, speed: { min: 1, max: 3 }, outModes: { default: "out" } }, number: { value: 60 }, opacity: { value: { min: 0.2, max: 0.6 } }, shape: { type: "circle" }, size: { value: { min: 5, max: 30 }, animation: { enable: true, speed: 2, sync: false } }, wobble: { enable: true, distance: 20, speed: 15 } } },
             fireflies: { background: { color: "transparent" }, particles: { color: { value: "#eab308" }, move: { direction: "none", enable: true, speed: 1, random: true }, number: { value: 40 }, opacity: { value: { min: 0.1, max: 0.8 }, animation: { enable: true, speed: 1, sync: false } }, shape: { type: "circle" }, size: { value: { min: 2, max: 5 } } } }
         };
         
+        // Modal Vignette Glow
+        const modal = document.getElementById('playerModal');
+        let glowColor = '';
+        if(effectType === 'embers') glowColor = 'rgba(255, 69, 0, 0.25)'; // orange/red
+        else if(effectType === 'snow') glowColor = 'rgba(0, 200, 255, 0.2)'; // cyan
+        else if(effectType === 'fireflies') glowColor = 'rgba(234, 179, 8, 0.2)'; // yellow
+        else if(effectType === 'matrix') glowColor = 'rgba(0, 255, 0, 0.2)'; // green
+        else if(effectType === 'bubbles') glowColor = 'rgba(59, 130, 246, 0.2)'; // blue
+        else if(effectType === 'stars') glowColor = 'rgba(255, 255, 255, 0.15)'; // white
+        
+        if (glowColor) {
+            modal.style.boxShadow = `inset 100px -100px 200px -100px ${glowColor}, inset -100px -100px 200px -100px ${glowColor}`;
+        } else {
+            modal.style.boxShadow = 'none';
+        }
+
         if (configs[effectType]) {
             currentParticles = await tsParticles.load("profileParticles", configs[effectType]);
             setTimeout(() => {
