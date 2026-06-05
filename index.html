@@ -1674,26 +1674,30 @@
             animation-delay: calc(0.3s + (var(--i) * 0.1s));
         }
 
-        .splash-continue {
+        .splash-continue-wrapper {
             position: absolute;
             bottom: 50px;
+            opacity: 0;
+            animation: continueEntrance 1s ease-out 1s forwards;
+            cursor: pointer;
+        }
+
+        .splash-continue-text {
+            display: inline-block;
             font-size: 16px;
             font-weight: bold;
             letter-spacing: 6px;
             color: rgba(255, 255, 255, 0.6);
-            opacity: 0;
-            animation: continueEntrance 1s ease-out 1s forwards,
-                       continuePulse 1.5s ease-in-out 2s infinite alternate;
             text-transform: uppercase;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease, text-shadow 0.3s ease, opacity 0.3s ease;
+            animation: continuePulse 1.5s ease-in-out 2s infinite alternate;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s ease, text-shadow 0.5s ease;
         }
 
-        .splash-continue:hover {
+        .splash-continue-wrapper:hover .splash-continue-text {
             transform: scale(1.15);
-            color: #ffffff !important;
-            text-shadow: 0 0 20px rgba(255,255,255,1) !important;
-            opacity: 1 !important;
-            animation-play-state: paused !important;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255,255,255,1);
+            animation: none;
         }
 
         @keyframes letterEntrance {
@@ -1738,7 +1742,9 @@
         <div class="splash-text">
             <span style="--i:1">A</span><span style="--i:2">S</span><span style="--i:3">C</span><span style="--i:4">E</span><span style="--i:5">N</span><span style="--i:6">S</span><span style="--i:7">I</span><span style="--i:8">O</span><span style="--i:9">N</span>
         </div>
-        <div class="splash-continue" id="splashContinue">Click to continue</div>
+        <div class="splash-continue-wrapper" id="splashContinue">
+            <span class="splash-continue-text">Click to continue</span>
+        </div>
     </div>
 
   <div class="bg-mesh"></div>
