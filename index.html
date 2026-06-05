@@ -1799,9 +1799,10 @@
                 try {
                     this.ctx = new (window.AudioContext || window.webkitAudioContext)();
                     this.masterVolume = this.ctx.createGain();
-                    this.masterVolume.gain.value = 0.15;
+                    this.masterVolume.gain.value = 0.5;
                     this.masterVolume.connect(this.ctx.destination);
                     this.initialized = true;
+                    if (this.ctx.state === 'suspended') this.ctx.resume();
                 } catch(e) {}
             }
 
@@ -1812,14 +1813,15 @@
                     const osc = this.ctx.createOscillator();
                     const gain = this.ctx.createGain();
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(1200, this.ctx.currentTime);
+                    osc.frequency.setValueAtTime(800, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(400, this.ctx.currentTime + 0.1);
                     gain.gain.setValueAtTime(0, this.ctx.currentTime);
-                    gain.gain.linearRampToValueAtTime(0.015, this.ctx.currentTime + 0.01);
-                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.1);
+                    gain.gain.linearRampToValueAtTime(0.2, this.ctx.currentTime + 0.01);
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.15);
                     osc.connect(gain);
                     gain.connect(this.masterVolume);
                     osc.start();
-                    osc.stop(this.ctx.currentTime + 0.15);
+                    osc.stop(this.ctx.currentTime + 0.2);
                 } catch(e) {}
             }
 
@@ -1827,21 +1829,25 @@
                 if (!this.initialized) return;
                 try {
                     if(this.ctx.state === 'suspended') this.ctx.resume();
-                    const freqs = [523.25, 659.25, 783.99, 987.77]; 
+                    const freqs = [329.63, 415.30, 493.88, 622.25]; 
                     freqs.forEach((freq, i) => {
                         setTimeout(() => {
                             const osc = this.ctx.createOscillator();
                             const gain = this.ctx.createGain();
-                            osc.type = 'sine';
+                            const filter = this.ctx.createBiquadFilter();
+                            osc.type = 'triangle';
                             osc.frequency.value = freq;
+                            filter.type = 'lowpass';
+                            filter.frequency.value = 2000;
                             gain.gain.setValueAtTime(0, this.ctx.currentTime);
-                            gain.gain.linearRampToValueAtTime(0.03, this.ctx.currentTime + 0.05);
-                            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 1.5);
-                            osc.connect(gain);
+                            gain.gain.linearRampToValueAtTime(0.25, this.ctx.currentTime + 0.05);
+                            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 2.0);
+                            osc.connect(filter);
+                            filter.connect(gain);
                             gain.connect(this.masterVolume);
                             osc.start();
-                            osc.stop(this.ctx.currentTime + 1.6);
-                        }, i * 40);
+                            osc.stop(this.ctx.currentTime + 2.1);
+                        }, i * 50);
                     });
                 } catch(e) {}
             }
@@ -1853,15 +1859,15 @@
                     const osc = this.ctx.createOscillator();
                     const gain = this.ctx.createGain();
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(600, this.ctx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(300, this.ctx.currentTime + 0.3);
+                    osc.frequency.setValueAtTime(400, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(150, this.ctx.currentTime + 0.4);
                     gain.gain.setValueAtTime(0, this.ctx.currentTime);
-                    gain.gain.linearRampToValueAtTime(0.03, this.ctx.currentTime + 0.02);
-                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.4);
+                    gain.gain.linearRampToValueAtTime(0.2, this.ctx.currentTime + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.5);
                     osc.connect(gain);
                     gain.connect(this.masterVolume);
                     osc.start();
-                    osc.stop(this.ctx.currentTime + 0.45);
+                    osc.stop(this.ctx.currentTime + 0.55);
                 } catch(e) {}
             }
         }
@@ -2591,7 +2597,7 @@
                     let tooltipColor = peakRank === 1 ? '#dfa539' : peakRank === 2 ? '#aabac6' : peakRank === 3 ? '#be733f' : peakRank ? '#64748b' : color;
 
                     let tierHTML = `
-                    <div class="tier-item" onclick="goToBoard('${cat.id}', '${player.name}')">
+                    <div class="tier-item" onclick="event.stopPropagation(); goToBoard('${cat.id}', '${player.name}')">
                         <img src="${cat.icon}" alt="${cat.name}" style="border: 1.5px solid ${actualBorderColor};">
                         <span class="tier-icon-value" style="color: ${color}; text-shadow: 0 0 5px ${color}; background: ${actualBgAlpha}; border: 1px solid ${actualBorderAlpha}; ${fontStyle}">${label}</span>
                         <div class="tooltip-box">
@@ -2635,14 +2641,16 @@
             const row = document.createElement('div');
             row.className = `player-row ${rowClassExtra}`;
             row.style.animationDelay = `${index * 0.08}s`;
+            row.onclick = () => openPlayerProfile(player.name);
+            row.style.cursor = 'pointer';
             
             row.innerHTML = `
-                <div class="rank-banner ${rankClass}" onclick="openPlayerProfile('${player.name}')" style="cursor: pointer;">
+                <div class="rank-banner ${rankClass}">
                     <div class="rank-number">${rank}.</div>
                     <img src="${bustUrl}" alt="bust" class="player-bust" onerror="this.src='https://crafatar.com/renders/body/606e2ff0ed7748429d6ce0927ce6486?size=100'">
                 </div>
                 
-                <div class="player-info" onclick="openPlayerProfile('${player.name}')" style="cursor: pointer;">
+                <div class="player-info">
                     <div class="name-wrapper">
                         <h3 title="Win Rate: ${winRate}%">${player.name} ${streakBadge}</h3>
                         <div class="title" style="display: flex; align-items: center;"><img src="${getRankIcon(calcPoints(player.stats, player.peaks))}" style="width: 22px; height: 22px; object-fit: contain; margin-right: 6px; mix-blend-mode: screen;"> ${getTitle(calcPoints(player.stats, player.peaks))} <span style="margin-left:4px;">(${calcPoints(player.stats, player.peaks)} pts)</span></div>
