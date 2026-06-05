@@ -1201,20 +1201,18 @@
             z-index: -1;
             border-radius: inherit;
             padding: 1.5px; /* This sets the border thickness */
-            /* Use a dim orange base instead of transparent to prevent 'black corner' gaps */
+            /* A completely solid, smooth continuous fire gradient to eliminate any dark corners or hard cuts */
             background: conic-gradient(
                 from var(--angle),
-                rgba(255, 69, 0, 0.15) 0%,
-                #ff4500 15%,
-                #ff9900 22%,
+                #ff4500 0%,
+                #ff9900 12%,
                 #ffffff 25%,
-                rgba(255, 69, 0, 0.15) 25%,
-                rgba(255, 69, 0, 0.15) 50%,
-                #ff4500 65%,
-                #ff9900 72%,
+                #ff9900 38%,
+                #ff4500 50%,
+                #ff9900 62%,
                 #ffffff 75%,
-                rgba(255, 69, 0, 0.15) 75%,
-                rgba(255, 69, 0, 0.15) 100%
+                #ff9900 88%,
+                #ff4500 100%
             );
             /* Mask to cut out the center so the row background remains transparent */
             -webkit-mask: 
