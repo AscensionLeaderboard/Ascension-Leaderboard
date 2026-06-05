@@ -1642,7 +1642,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            animation: splashFadeOut 1s ease-in-out 3s forwards;
+            transform-origin: center;
+            animation: splashFadeOut 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) 3.2s forwards;
         }
         
         .splash-logo {
@@ -1684,8 +1685,9 @@
         }
 
         @keyframes splashFadeOut {
-            0% { opacity: 1; visibility: visible; }
-            100% { opacity: 0; visibility: hidden; }
+            0% { opacity: 1; visibility: visible; transform: scale(1); border-radius: 0; }
+            40% { transform: scale(1.05); opacity: 1; border-radius: 20px; }
+            100% { opacity: 0; visibility: hidden; transform: scale(0); border-radius: 50%; }
         }
     </style>
 </head>
