@@ -322,9 +322,9 @@
             background: transparent !important;
         }
         
-        .empty-icon-ring {
-            border-color: transparent !important;
-            background: transparent !important;
+        /* Make empty rings visible in Light Mode */
+        body.light-mode .empty-icon-ring {
+            border-color: rgba(0, 0, 0, 0.15) !important;
         }
 
         @media (max-width: 768px) {
