@@ -632,19 +632,18 @@
 
         /* --- Premium Animations --- */
         @keyframes fadeSlideIn {
-            0% { opacity: 0; transform: translateY(20px) scale(0.97); filter: blur(4px); }
-            60% { opacity: 1; filter: blur(0); }
-            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+            0% { opacity: 0; transform: translateY(20px) scale(0.97); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @keyframes fadeOpacityOnly {
-            0% { opacity: 0; filter: blur(2px); }
-            100% { opacity: 1; filter: blur(0); }
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         @keyframes fadeSlideOut {
-            0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-            100% { opacity: 0; transform: translateY(-15px) scale(0.98); filter: blur(4px); }
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-15px) scale(0.98); }
         }
 
         @keyframes rowEntrance {
@@ -1758,8 +1757,11 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.05);
             color: #f8fafc;
-            transform: scale(0.9);
+            transform: scale(0.9) translateZ(0);
             opacity: 0;
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
             max-height: 90vh;
             overflow-y: auto;
@@ -1767,7 +1769,7 @@
         }
         .modal-content::-webkit-scrollbar { display: none; }
         .modal-overlay.active .modal-content {
-            transform: scale(1);
+            transform: scale(1) translateZ(0);
             opacity: 1;
         }
         .modal-close {
