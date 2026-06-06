@@ -4172,8 +4172,8 @@
 
             if (isVisible) {
                 // Ring follows with smooth lerp
-                ringX += (mouseX - ringX) * 0.15;
-                ringY += (mouseY - ringY) * 0.15;
+                ringX += (mouseX - ringX) * 0.45;
+                ringY += (mouseY - ringY) * 0.45;
                 ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
 
                 // Fluid Trail Physics
@@ -4187,8 +4187,8 @@
                     const t = trail[i];
                     
                     // Spring physics to pull towards the previous point
-                    t.x += (currentX - t.x) * 0.35;
-                    t.y += (currentY - t.y) * 0.35;
+                    t.x += (currentX - t.x) * 0.65;
+                    t.y += (currentY - t.y) * 0.65;
                     
                     const scale = 1 - (i / TRAIL_LENGTH);
 
