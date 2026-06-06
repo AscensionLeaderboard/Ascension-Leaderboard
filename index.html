@@ -1739,6 +1739,9 @@
             top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -4086,6 +4089,10 @@
             mouseX = e.clientX;
             mouseY = e.clientY;
 
+            // Instantly update dot position for 0ms input lag!
+            dot.style.left = mouseX + 'px';
+            dot.style.top = mouseY + 'px';
+
             if (!isVisible) {
                 isVisible = true;
                 dot.style.opacity = '1';
@@ -4159,10 +4166,6 @@
             ctx.clearRect(0, 0, cWidth, cHeight);
 
             if (isVisible) {
-                // Dot follows instantly
-                dot.style.left = mouseX + 'px';
-                dot.style.top = mouseY + 'px';
-
                 // Ring follows with smooth lerp
                 ringX += (mouseX - ringX) * 0.15;
                 ringY += (mouseY - ringY) * 0.15;
