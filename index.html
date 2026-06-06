@@ -2325,8 +2325,8 @@
                         osc.type = 'square';
                         osc.frequency.setValueAtTime(880, t);
                         gain.gain.setValueAtTime(0, t);
-                        gain.gain.setValueAtTime(0.05, t + 0.01);
-                        gain.gain.setValueAtTime(0, t + 0.05);
+                        gain.gain.linearRampToValueAtTime(0.015, t + 0.01);
+                        gain.gain.linearRampToValueAtTime(0, t + 0.05);
                     }
                     
                     osc.connect(gain);
@@ -2401,8 +2401,8 @@
                         osc1.frequency.setValueAtTime(440, t);
                         osc1.frequency.setValueAtTime(880, t + 0.05);
                         gain1.gain.setValueAtTime(0, t);
-                        gain1.gain.setValueAtTime(0.2, t + 0.01);
-                        gain1.gain.setValueAtTime(0, t + 0.15);
+                        gain1.gain.linearRampToValueAtTime(0.06, t + 0.01);
+                        gain1.gain.linearRampToValueAtTime(0, t + 0.15);
                     }
 
                     osc1.connect(gain1);
@@ -2446,8 +2446,8 @@
                         osc.frequency.setValueAtTime(300, t);
                         osc.frequency.setValueAtTime(150, t + 0.1);
                         gain.gain.setValueAtTime(0, t);
-                        gain.gain.setValueAtTime(0.2, t + 0.01);
-                        gain.gain.setValueAtTime(0, t + 0.2);
+                        gain.gain.linearRampToValueAtTime(0.06, t + 0.01);
+                        gain.gain.linearRampToValueAtTime(0, t + 0.2);
                     }
                     
                     osc.connect(gain);
@@ -2658,11 +2658,11 @@
         <div class="setting-group">
             <label>Sound Pack</label>
             <select id="audioPack" onchange="updateAudioSettings()">
-                <option value="scifi">Sci-Fi Glass (Mặc định)</option>
-                <option value="mech">Mechanical Keyboard (ASMR)</option>
-                <option value="water">Water Drops (ASMR)</option>
-                <option value="wood">Minimalist Wood (Thoc)</option>
-                <option value="arcade">Arcade Retro (8-bit)</option>
+                <option value="scifi">Sci-Fi Glass</option>
+                <option value="mech">Mechanical Switch</option>
+                <option value="water">Water Drops</option>
+                <option value="wood">Minimalist Wood</option>
+                <option value="arcade">Arcade Retro</option>
             </select>
         </div>
     </div>
