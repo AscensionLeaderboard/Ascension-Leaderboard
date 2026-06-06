@@ -56,7 +56,7 @@
         }
 
         body.custom-cursor-active, body.custom-cursor-active * {
-            cursor: none !important;
+            cursor: var(--cursor-hardware, none) !important;
         }
 
         /* --- Custom Neon Cursor (x10000 Better) --- */
@@ -68,23 +68,11 @@
         }
 
         .cursor-dot {
-            position: fixed;
-            top: 0; left: 0;
-            width: 6px; height: 6px;
-            background: #ffffff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 999999;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px #ffffff, 0 0 20px var(--cursor-hex), 0 0 40px rgba(var(--cursor-r), var(--cursor-g), var(--cursor-b), 0.5);
-            transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
-            mix-blend-mode: screen;
+            display: none !important; /* Replaced by OS hardware SVG cursor for 0ms lag */
         }
 
         .cursor-dot.clicking {
-            width: 12px; height: 12px;
-            background: var(--cursor-hex);
-            box-shadow: 0 0 20px var(--cursor-hex), 0 0 40px rgba(var(--cursor-r), var(--cursor-g), var(--cursor-b), 0.8);
+            display: none !important;
         }
 
         .cursor-ring {
@@ -4020,6 +4008,11 @@
         document.documentElement.style.setProperty('--cursor-g', g);
         document.documentElement.style.setProperty('--cursor-b', b);
         document.documentElement.style.setProperty('--cursor-hex', hex);
+        
+        // Generate 0ms Hardware SVG Cursor
+        const svgCursor = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><defs><filter id="g"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="16" cy="16" r="4" fill="${hex}" filter="url(#g)"/><circle cx="16" cy="16" r="2" fill="#fff"/></svg>`;
+        const encoded = btoa(svgCursor);
+        document.documentElement.style.setProperty('--cursor-hardware', `url('data:image/svg+xml;base64,${encoded}') 16 16, auto`);
         
         localStorage.setItem('cursorColor', JSON.stringify({ r, g, b, hex }));
         
