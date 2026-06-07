@@ -2242,12 +2242,13 @@
                         gain.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
                     } else if (this.pack === 'arcade') {
                         // Quick 8-bit blip
+                        // Quick 8-bit blip (louder so it's audible)
                         osc.type = 'square';
-                        osc.frequency.setValueAtTime(1200, t);
-                        osc.frequency.exponentialRampToValueAtTime(800, t + 0.03);
+                        osc.frequency.setValueAtTime(1000, t);
+                        osc.frequency.exponentialRampToValueAtTime(600, t + 0.04);
                         gain.gain.setValueAtTime(0, t);
-                        gain.gain.linearRampToValueAtTime(0.03, t + 0.005);
-                        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
+                        gain.gain.linearRampToValueAtTime(0.06, t + 0.005);
+                        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
                     } else if (this.pack === 'neon') {
                         osc.type = 'sawtooth';
                         osc.frequency.setValueAtTime(150, t);
@@ -2443,7 +2444,7 @@
                     osc1.start(t);
                     osc1.stop(t + 0.2);
 
-                    if (this.pack !== 'water') {
+                    if (this.pack !== 'water' && this.pack !== 'arcade') {
                         osc2.connect(gain2);
                         gain2.connect(this.masterVolume);
                         osc2.start(t);
