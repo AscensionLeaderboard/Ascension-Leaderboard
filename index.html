@@ -2358,7 +2358,7 @@
                         osc1.frequency.setValueAtTime(880, t + 0.04);
                         osc1.frequency.setValueAtTime(660, t + 0.08);
                         gain1.gain.setValueAtTime(0, t);
-                        gain1.gain.linearRampToValueAtTime(0.3, t + 0.005);
+                        gain1.gain.linearRampToValueAtTime(0.12, t + 0.005);
                         gain1.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
                     } else if (this.pack === 'neon') {
                         osc1.type = 'sawtooth';
@@ -2650,16 +2650,16 @@
         <div class="setting-group">
             <label>Sound Pack</label>
             <select id="audioPack" onchange="updateAudioSettings()">
-                <option value="scifi">🔮 Sci-Fi Glass</option>
-                <option value="mech">⚙️ Mechanical Switch</option>
-                <option value="water">💧 Water Drops</option>
-                <option value="wood">🪵 Minimalist Wood</option>
-                <option value="arcade">🕹️ Arcade Retro</option>
-                <option value="neon">💜 Neon Pulse</option>
-                <option value="crystal">💎 Crystal Chime</option>
-                <option value="thunder">⚡ Thunder Strike</option>
-                <option value="laser">🔫 Laser Blaster</option>
-                <option value="bubble">🫧 Bubble Pop</option>
+                <option value="scifi">Sci-Fi Glass</option>
+                <option value="mech">Mechanical Switch</option>
+                <option value="water">Water Drops</option>
+                <option value="wood">Minimalist Wood</option>
+                <option value="arcade">Arcade Retro</option>
+                <option value="neon">Neon Pulse</option>
+                <option value="crystal">Crystal Chime</option>
+                <option value="thunder">Thunder Strike</option>
+                <option value="laser">Laser Blaster</option>
+                <option value="bubble">Bubble Pop</option>
             </select>
         </div>
     </div>
