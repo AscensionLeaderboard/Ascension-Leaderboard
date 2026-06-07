@@ -2175,6 +2175,7 @@
         }
 
         /* --- PNG and JPG Background Remover & Enhancer --- */
+        /* Apply contrast filter to crush grey to black for all icons */
         img[style*="mix-blend-mode: screen"],
         .title img,
         .tab img,
@@ -2182,8 +2183,26 @@
         .icon-wrapper img,
         .modal-icon-wrapper img,
         #modalOverallIcon {
-            mix-blend-mode: screen !important;
             filter: contrast(4) brightness(0.7) saturate(1.2) !important;
+            background: transparent !important;
+        }
+
+        /* Apply mix-blend-mode directly to images that don't have complex wrapper stacking contexts */
+        img[style*="mix-blend-mode: screen"],
+        .title img,
+        .tab img,
+        .position-circle img,
+        #modalOverallIcon {
+            mix-blend-mode: screen !important;
+        }
+
+        /* CRITICAL CHROMIUM BUG FIX: For elements with complex stacking contexts (border, transition),
+           apply mix-blend-mode to the ENTIRE WRAPPER instead of the child image. 
+           This forces the browser to blend the entire isolated context with the page,
+           making the black background of the child image transparent! */
+        .icon-wrapper,
+        .modal-icon-wrapper {
+            mix-blend-mode: screen !important;
             background: transparent !important;
         }
 
