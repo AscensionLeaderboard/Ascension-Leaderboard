@@ -796,9 +796,9 @@
             height: 58px;
             display: flex;
             align-items: center;
-            clip-path: polygon(0 0, 100% 0, 82% 100%, 0% 100%);
+            clip-path: polygon(0 -50%, 100% -50%, 82% 100%, 0% 100%);
             border-radius: 8px 0 0 8px;
-            overflow: hidden;
+            /* overflow: hidden removed */
             flex-shrink: 0;
         }
 
@@ -834,21 +834,21 @@
             background: linear-gradient(110deg, #b78628 0%, #fcf6ba 25%, #d4af37 50%, #fcf6ba 75%, #996515 100%);
             box-shadow: 0 5px 15px rgba(0,0,0,0.4);
             position: relative;
-            overflow: hidden;
+            /* overflow: hidden removed */
             border: 1px solid rgba(255, 235, 160, 0.4);
         }
         .rank-2 { 
             background: linear-gradient(110deg, #8e9eab 0%, #eef2f3 25%, #a1b0bb 50%, #eef2f3 75%, #758390 100%);
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             position: relative;
-            overflow: hidden;
+            /* overflow: hidden removed */
             border: 1px solid rgba(238, 242, 243, 0.4);
         }
         .rank-3 { 
             background: linear-gradient(110deg, #8c4a1d 0%, #f4a371 25%, #b35e22 50%, #f4a371 75%, #6a3210 100%);
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             position: relative;
-            overflow: hidden;
+            /* overflow: hidden removed */
             border: 1px solid rgba(244, 163, 113, 0.4);
         }
 
@@ -1193,7 +1193,7 @@
             .rank-banner, .rank-banner.rank-1, .rank-banner.rank-2, .rank-banner.rank-3 {
                 width: 100px !important;
                 height: 50px !important;
-                clip-path: polygon(0 0, 100% 0, 75% 100%, 0% 100%);
+                clip-path: polygon(0 -50%, 100% -50%, 75% 100%, 0% 100%);
             }
             
             .rank-number {
