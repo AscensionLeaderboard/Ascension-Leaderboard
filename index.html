@@ -543,14 +543,11 @@
             width: auto;
             object-fit: contain; 
             filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.2));
-            animation: floatingLogo 4s ease-in-out infinite;
-            transition: filter 0.3s ease, transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .site-logo:hover {
-            filter: drop-shadow(0px 5px 15px rgba(0, 229, 255, 0.5));
-            transform: scale(1.05) translateY(-5px);
-            animation-play-state: paused;
+            transform: scale(1.05);
         }
 
         @keyframes floatingLogo {
@@ -880,16 +877,8 @@
 
         /* Skin scales up on hover */
         .player-row:hover .player-bust {
-            filter: drop-shadow(0 0 6px rgba(255,255,255,0.25));
-        }
-        .player-row.rank-row-1:hover .player-bust {
-            filter: drop-shadow(0 0 8px rgba(223,166,50,0.5));
-        }
-        .player-row.rank-row-2:hover .player-bust {
-            filter: drop-shadow(0 0 8px rgba(138,149,153,0.5));
-        }
-        .player-row.rank-row-3:hover .player-bust {
-            filter: drop-shadow(0 0 8px rgba(194,104,40,0.5));
+            transform: translateY(-5px) scale(1.05) !important;
+            filter: brightness(1.1);
         }
 
         /* --- Premium Rank Banner --- */
@@ -3184,7 +3173,7 @@
                 interactivity: { 
                     detect_on: "window",
                     events: { 
-                        onhover: { enable: false, mode: "grab" },
+                        onhover: { enable: true, mode: "grab" },
                         resize: true
                     },
                     modes: {
