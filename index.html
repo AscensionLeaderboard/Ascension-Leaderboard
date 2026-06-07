@@ -937,11 +937,11 @@
             cursor: pointer;
         }
 
-        .tier-item img, .tier-icon-value {
+        .icon-wrapper, .tier-icon-value {
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .tier-item:hover img {
+        .tier-item:hover .icon-wrapper {
             transform: scale(1.15);
         }
         
@@ -949,14 +949,21 @@
             transform: scale(1.15);
         }
 
-        .tier-item img {
+        .icon-wrapper {
             width: 38px;
             height: 38px;
-            padding: 6px;
+            padding: 4px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        .icon-wrapper img {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: contain;
-            mix-blend-mode: screen;
-            background: transparent;
         }
 
         .tier-icon-value {
@@ -2162,7 +2169,7 @@
         /* --- JPG Background Remover (Screen with high contrast to crush background to pure black) --- */
         .tab img,
         .position-circle img,
-        .tier-item img,
+        .icon-wrapper img,
         #modalOverallIcon {
             mix-blend-mode: screen !important;
             filter: contrast(4) brightness(0.7) saturate(1.2) !important;
@@ -3212,7 +3219,9 @@
 
                     let tierHTML = `
                     <div class="tier-item" onclick="event.stopPropagation(); goToBoard('${cat.id}', '${player.name}')">
-                        <img src="${cat.icon}" alt="${cat.name}" style="border: 1.5px solid ${actualBorderColor};">
+                        <div class="icon-wrapper" style="border: 1.5px solid ${actualBorderColor};">
+                            <img src="${cat.icon}" alt="${cat.name}">
+                        </div>
                         <span class="tier-icon-value" style="color: ${color}; text-shadow: 0 0 5px ${color}; background: ${actualBgAlpha}; border: 1px solid ${actualBorderAlpha}; ${fontStyle}">${label}</span>
                         <div class="tooltip-box">
                             <div class="tooltip-title" style="color: ${tooltipColor}; text-shadow: 0 0 5px ${tooltipColor};">${tooltipTitle}</div>
