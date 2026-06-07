@@ -962,7 +962,7 @@
         .icon-wrapper img {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
+            clip-path: circle(50%);
             object-fit: contain;
         }
 
@@ -2171,8 +2171,7 @@
         .position-circle img,
         .icon-wrapper img,
         #modalOverallIcon {
-            mix-blend-mode: screen !important;
-            filter: contrast(4) brightness(0.7) saturate(1.2) !important;
+            mix-blend-mode: lighten !important;
             background: transparent !important;
         }
 
