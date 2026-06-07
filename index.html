@@ -2491,8 +2491,13 @@
 
             // 3D Holographic Trading Card Tilt
             let lastHoveredRow3D = null;
+            let isTicking3D = false;
             document.addEventListener('mousemove', (e) => {
-                const row = e.target.closest('.player-row, .board-player-card');
+                if (isTicking3D) return;
+                isTicking3D = true;
+                requestAnimationFrame(() => {
+                    isTicking3D = false;
+                    const row = e.target.closest('.player-row, .board-player-card');
                 
                 if (lastHoveredRow3D && lastHoveredRow3D !== row) {
                     lastHoveredRow3D.style.transform = '';
@@ -2548,6 +2553,7 @@
                     
                     lastHoveredRow3D = row;
                 }
+                });
             });
         });
     </script>
@@ -3986,16 +3992,6 @@
                     
                     // Apply to Title with Parallax offset (moves slightly differently for 3D depth)
                     siteTitle.style.transform = `perspective(800px) rotateX(${currentRotateX * 0.7}deg) rotateY(${currentRotateY * 0.7}deg) translate(${currentTranslateX * 0.5}px, ${finalTranslateY * 0.8}px) scale(${isHovering ? 1.02 : 1})`;
-                    
-                    if (isHovering) {
-                        siteLogo.style.filter = `drop-shadow(${currentTranslateX * -1}px ${currentTranslateY * -1}px 10px rgba(0, 229, 255, 0.5))`;
-                        siteTitle.style.filter = `drop-shadow(${currentTranslateX * -0.5}px ${currentTranslateY * -0.5}px 5px rgba(255, 255, 255, 0.4))`;
-                    } else {
-                        const glowRadius = 5 + (idleGlow * 10);
-                        const glowAlpha = 0.2 + (idleGlow * 0.4);
-                        siteLogo.style.filter = `drop-shadow(0px 0px ${glowRadius}px rgba(0, 229, 255, ${glowAlpha}))`;
-                        siteTitle.style.filter = `drop-shadow(0px 0px ${glowRadius * 0.5}px rgba(255, 255, 255, ${glowAlpha * 0.3}))`;
-                    }
                     
                     requestAnimationFrame(animateLogo);
                 }
