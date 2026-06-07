@@ -2175,7 +2175,7 @@
         }
 
         /* --- PNG and JPG Background Remover & Enhancer --- */
-        /* Apply contrast filter to crush grey to black for all icons */
+        /* Apply SVG filter to subtract the dark grey #161616 background, making it pure black */
         img[style*="mix-blend-mode: screen"],
         .title img,
         .tab img,
@@ -2183,7 +2183,7 @@
         .icon-wrapper img,
         .modal-icon-wrapper img,
         #modalOverallIcon {
-            filter: contrast(4) brightness(0.7) saturate(1.2) !important;
+            filter: url(#remove-img-bg) !important;
             background: transparent !important;
         }
 
@@ -2458,6 +2458,16 @@
     </script>
 </head>
 <body>
+    <svg width="0" height="0" style="position: absolute; pointer-events: none;">
+        <filter id="remove-img-bg">
+            <feColorMatrix type="matrix" values="
+                1 0 0 0 -0.09
+                0 1 0 0 -0.09
+                0 0 1 0 -0.09
+                0 0 0 1 0
+            " />
+        </filter>
+    </svg>
     <svg width="0" height="0" style="position: absolute; display: none;">
       <filter id="crush-background">
         <feComponentTransfer>
