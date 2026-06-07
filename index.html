@@ -2173,11 +2173,9 @@
             filter: url(#remove-img-bg);
         }
 
-        /* Apply chroma-key filter to all other icon images */
+        /* Apply chroma-key filter to tab icons and modal overall icon */
         .tab img,
-        .title img,
-        #modalOverallIcon,
-        img[style*="mix-blend-mode: screen"] {
+        #modalOverallIcon {
             filter: url(#remove-img-bg) !important;
             background: transparent !important;
         }
@@ -2556,31 +2554,31 @@
             <!-- Titles Tab -->
             <div id="infoTabTitles" style="display: flex; flex-direction: column; gap: 15px; animation: fadeOpacityOnly 0.3s ease;">
                 <div style="display: flex; gap: 15px; align-items: center;">
-                    <img src="https://i.postimg.cc/Y2RdcHbH/combat-grandmaster.webp" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <img src="https://i.postimg.cc/Y2RdcHbH/combat-grandmaster.webp" style="width: 24px; height: 24px; object-fit: contain;">
                     <div><div style="color: #facc15; font-weight: bold; font-size: 15px;">Combat Grandmaster</div><div style="color: #888; font-size: 13px;">Obtained 80+ total points.</div></div>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: center;">
-                    <img src="https://i.postimg.cc/TPbtB5HD/combat-master.webp" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <img src="https://i.postimg.cc/TPbtB5HD/combat-master.webp" style="width: 24px; height: 24px; object-fit: contain;">
                     <div><div style="color: #facc15; font-weight: bold; font-size: 15px;">Combat Master</div><div style="color: #888; font-size: 13px;">Obtained 50+ total points.</div></div>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: center;">
-                    <img src="https://i.postimg.cc/qBx5knBz/combat-ace.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <img src="https://i.postimg.cc/qBx5knBz/combat-ace.jpg" style="width: 24px; height: 24px; object-fit: contain; filter: url(#remove-img-bg);">
                     <div><div style="color: #f43f5e; font-weight: bold; font-size: 15px;">Combat Ace</div><div style="color: #888; font-size: 13px;">Obtained 30+ total points.</div></div>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: center;">
-                    <img src="https://i.postimg.cc/pL6SwHWk/combat-specialist.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <img src="https://i.postimg.cc/pL6SwHWk/combat-specialist.jpg" style="width: 24px; height: 24px; object-fit: contain; filter: url(#remove-img-bg);">
                     <div><div style="color: #d946ef; font-weight: bold; font-size: 15px;">Combat Specialist</div><div style="color: #888; font-size: 13px;">Obtained 15+ total points.</div></div>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: center;">
-                    <img src="https://i.postimg.cc/59BZ6TgY/combat-cadet.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <img src="https://i.postimg.cc/59BZ6TgY/combat-cadet.jpg" style="width: 24px; height: 24px; object-fit: contain; filter: url(#remove-img-bg);">
                     <div><div style="color: #3b82f6; font-weight: bold; font-size: 15px;">Combat Cadet</div><div style="color: #888; font-size: 13px;">Obtained 10+ total points.</div></div>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: center;">
-                    <img src="https://i.postimg.cc/FHCthSpm/combat-novice.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <img src="https://i.postimg.cc/FHCthSpm/combat-novice.jpg" style="width: 24px; height: 24px; object-fit: contain; filter: url(#remove-img-bg);">
                     <div><div style="color: #10b981; font-weight: bold; font-size: 15px;">Combat Novice</div><div style="color: #888; font-size: 13px;">Obtained 5+ total points.</div></div>
                 </div>
                 <div style="display: flex; gap: 15px; align-items: center;">
-                    <img src="https://i.postimg.cc/X78SDmyS/rookie.jpg" style="width: 24px; height: 24px; object-fit: contain; mix-blend-mode: screen;">
+                    <img src="https://i.postimg.cc/X78SDmyS/rookie.jpg" style="width: 24px; height: 24px; object-fit: contain; filter: url(#remove-img-bg);">
                     <div><div style="color: #9ca3af; font-weight: bold; font-size: 15px;">Rookie</div><div style="color: #888; font-size: 13px;">Starting rank for players with less than 5 points.</div></div>
                 </div>
             </div>
@@ -2592,7 +2590,7 @@
                 <!-- Rank 1 -->
                 <div>
                     <div style="display: flex; align-items: center; margin-bottom: 8px;">
-                        <img src="https://i.postimg.cc/Qxw2KYfG/overall.jpg" style="width: 20px; height: 20px; mix-blend-mode: screen; margin-right: 8px;">
+                        <img src="https://i.postimg.cc/Qxw2KYfG/overall.jpg" style="width: 20px; height: 20px; filter: url(#remove-img-bg); margin-right: 8px;">
                         <span style="color: #facc15; font-weight: bold; font-size: 16px;">#1</span>
                     </div>
                     <div style="border-left: 2px solid #facc15; padding-left: 15px; margin-left: 9px;">
@@ -2608,7 +2606,7 @@
                 <!-- Rank 2 -->
                 <div>
                     <div style="display: flex; align-items: center; margin-bottom: 8px;">
-                        <img src="https://i.postimg.cc/7PFvfQBj/tier-2.jpg" style="width: 20px; height: 20px; mix-blend-mode: screen; margin-right: 8px;">
+                        <img src="https://i.postimg.cc/7PFvfQBj/tier-2.jpg" style="width: 20px; height: 20px; filter: url(#remove-img-bg); margin-right: 8px;">
                         <span style="color: #94a3b8; font-weight: bold; font-size: 16px;">#2</span>
                     </div>
                     <div style="border-left: 2px solid #94a3b8; padding-left: 15px; margin-left: 9px;">
@@ -2624,7 +2622,7 @@
                 <!-- Rank 3 -->
                 <div>
                     <div style="display: flex; align-items: center; margin-bottom: 8px;">
-                        <img src="https://i.postimg.cc/d1hX08Gq/tier-3.jpg" style="width: 20px; height: 20px; mix-blend-mode: screen; margin-right: 8px;">
+                        <img src="https://i.postimg.cc/d1hX08Gq/tier-3.jpg" style="width: 20px; height: 20px; filter: url(#remove-img-bg); margin-right: 8px;">
                         <span style="color: #d97706; font-weight: bold; font-size: 16px;">#3</span>
                     </div>
                     <div style="border-left: 2px solid #d97706; padding-left: 15px; margin-left: 9px;">
@@ -3299,7 +3297,7 @@
                 <div class="player-info">
                     <div class="name-wrapper">
                         <h3 title="Win Rate: ${winRate}%">${player.name} ${streakBadge}</h3>
-                        <div class="title" style="display: flex; align-items: center;"><img src="${getRankIcon(calcPoints(player.stats, player.peaks))}" style="width: 22px; height: 22px; object-fit: contain; margin-right: 6px; mix-blend-mode: screen;"> ${getTitle(calcPoints(player.stats, player.peaks))} <span style="margin-left:4px;">(${calcPoints(player.stats, player.peaks)} pts)</span></div>
+                        <div class="title" style="display: flex; align-items: center;"><img src="${getRankIcon(calcPoints(player.stats, player.peaks))}" style="width: 22px; height: 22px; object-fit: contain; margin-right: 6px; ${getRankIcon(calcPoints(player.stats, player.peaks)).endsWith('.jpg') ? 'filter: url(#remove-img-bg);' : ''}"> ${getTitle(calcPoints(player.stats, player.peaks))} <span style="margin-left:4px;">(${calcPoints(player.stats, player.peaks)} pts)</span></div>
                     </div>
                 </div>
 
@@ -3527,7 +3525,7 @@
         
         const titleEl = document.getElementById('modalTitle');
         const iconUrl = getRankIcon(pts);
-        titleEl.innerHTML = `<img src="${iconUrl}" style="width: 28px; height: 28px; object-fit: contain; margin-right: 8px; mix-blend-mode: screen;"> ${getTitle(pts)}`;
+        titleEl.innerHTML = `<img src="${iconUrl}" style="width: 28px; height: 28px; object-fit: contain; margin-right: 8px; ${iconUrl.endsWith('.jpg') ? 'filter: url(#remove-img-bg);' : ''}"> ${getTitle(pts)}`;
         titleEl.style.borderColor = tierTheme.glow;
         titleEl.style.background = tierTheme.bgAlpha;
         titleEl.style.color = tierTheme.main;
