@@ -2159,13 +2159,13 @@
             background: transparent !important;
         }
 
-        /* --- JPG Background Remover (Lighten absorbs dark pixels perfectly) --- */
+        /* --- JPG Background Remover (Screen with high contrast to crush background to pure black) --- */
         .tab img,
         .position-circle img,
         .tier-item img,
         #modalOverallIcon {
-            mix-blend-mode: lighten !important;
-            filter: contrast(1.5) brightness(0.9) !important;
+            mix-blend-mode: screen !important;
+            filter: contrast(4) brightness(0.7) saturate(1.2) !important;
             background: transparent !important;
         }
 
