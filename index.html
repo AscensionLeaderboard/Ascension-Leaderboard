@@ -176,12 +176,7 @@
             pointer-events: none;
         }
 
-        body.light-mode .cursor-settings-panel {
-            background: rgba(255, 255, 255, 0.9);
-            color: #1a1a2e;
-            border: 1px solid rgba(0,0,0,0.1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
+        
 
         .cursor-settings-panel .panel-header {
             display: flex;
@@ -191,7 +186,7 @@
             padding-bottom: 8px;
         }
 
-        body.light-mode .cursor-settings-panel .panel-header { border-bottom-color: rgba(0,0,0,0.1); }
+        
         .cursor-settings-panel h3 { margin: 0; font-size: 16px; font-weight: 600; }
         
         .cursor-settings-panel .setting-group {
@@ -211,7 +206,7 @@
             color: #94a3b8;
         }
 
-        body.light-mode .cursor-settings-panel .setting-group label { color: #64748b; }
+        
 
         .cursor-settings-panel select {
             background: rgba(0,0,0,0.3);
@@ -229,16 +224,9 @@
             color: white;
         }
 
-        body.light-mode .cursor-settings-panel select {
-            background: white;
-            color: #1a1a2e;
-            border-color: rgba(0,0,0,0.2);
-        }
+        
 
-        body.light-mode .cursor-settings-panel select option {
-            background: white;
-            color: #1a1a2e;
-        }
+        
 
         .color-options {
             display: flex;
@@ -255,7 +243,7 @@
         
         .color-btn:hover { transform: scale(1.15); }
         .color-btn.active { border-color: white; box-shadow: 0 0 10px currentColor; transform: scale(1.15); }
-        body.light-mode .color-btn.active { border-color: #1a1a2e; }
+        
 
         /* Toggle Switch */
         .switch { position: relative; display: inline-block; width: 40px; height: 22px; }
@@ -316,158 +304,80 @@
             pointer-events: auto !important;
         }
 
-        /* --- Light Mode --- */
-        body.light-mode {
-            background-color: #ffffff;
-            color: #1a1a2e;
-        }
+        
+        
 
         
 
-        body.light-mode .universe-bg {
-            background: #ffffff;
-        }
+        
 
-        body.light-mode #mainBgParticles {
-            filter: invert(1);
-        }
+        
 
-        body.light-mode .container { color: #1a1a2e; }
+        
 
-        body.light-mode .player-row {
-            background-color: transparent;
-            border-color: rgba(0,0,0,0.05);
-            box-shadow: none;
-        }
+        
 
         /* Light Mode Rank Banners */
-        body.light-mode .rank-other {
-            background-color: #f1f5f9;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-        }
-
-        body.light-mode .rank-number { 
-            color: #1a1a2e; 
-            text-shadow: none; /* Remove dark mode text shadow */
-        }
-
-        /* Light Mode Hover States (Overrides dark gradients) */
-        body.light-mode .player-row:hover {
-            background: rgba(0,0,0,0.02);
-            border-color: rgba(100,100,200,0.4);
-            box-shadow: 0 0 12px rgba(0,0,0,0.08);
-        }
-
-        body.light-mode .player-row.rank-row-1:hover {
-            background: linear-gradient(135deg, rgba(223,166,50,0.1) 0%, rgba(0,0,0,0.02) 100%);
-            border-color: rgba(223,166,50,0.6);
-            box-shadow: 0 0 15px rgba(223,166,50,0.2);
-        }
-
-        body.light-mode .player-row.rank-row-2:hover {
-            background: linear-gradient(135deg, rgba(138,149,153,0.15) 0%, rgba(0,0,0,0.02) 100%);
-            border-color: rgba(138,149,153,0.6);
-            box-shadow: 0 0 15px rgba(138,149,153,0.2);
-        }
-
-        body.light-mode .player-row.rank-row-3:hover {
-            background: linear-gradient(135deg, rgba(194,104,40,0.15) 0%, rgba(0,0,0,0.02) 100%);
-            border-color: rgba(194,104,40,0.6);
-            box-shadow: 0 0 15px rgba(194,104,40,0.2);
-        }
-
-        body.light-mode .name-wrapper h3 { color: #1a1a2e; }
-        body.light-mode .title { color: #666; }
-        body.light-mode .title span { color: #333; }
-
-        body.light-mode .tabs {
-            background-color: transparent;
-            border-color: rgba(0,0,0,0.1);
-        }
-
-        body.light-mode .tab { color: #888; }
-        body.light-mode .tab.active, body.light-mode .tab:hover { 
-            background-color: rgba(0,0,0,0.05); color: #1a1a2e; 
-        }
-        body.light-mode .tab::after { background: #1a1a2e; }
-
-        body.light-mode .leaderboard-header { color: #999; border-bottom-color: rgba(0,0,0,0.1); }
-
-        body.light-mode .board-col {
-            background: transparent;
-            border-color: rgba(0,0,0,0.1);
-        }
-
-        body.light-mode .board-player-card {
-            background: rgba(0,0,0,0.02);
-            border-color: rgba(0,0,0,0.08);
-        }
-        body.light-mode .board-player-card:hover {
-            background: rgba(0,0,0,0.05);
-            border-color: rgba(100,100,200,0.4);
-        }
-        body.light-mode .board-player-card .name { color: #1a1a2e; }
-
-        body.light-mode .region { background-color: rgba(0,0,0,0.05); color: #555; border-color: rgba(0,0,0,0.1); }
-
-        body.light-mode .search-container input {
-            background: rgba(0,0,0,0.04);
-            border-color: rgba(0,0,0,0.12);
-            color: #1a1a2e;
-        }
-        body.light-mode .search-container input:focus {
-            background: rgba(0,0,0,0.06);
-            border-color: rgba(0,0,0,0.2);
-        }
-        body.light-mode .search-icon { color: #999; }
-
-        body.light-mode .toolbar-btn {
-            border-color: rgba(0,0,0,0.15);
-            background: rgba(255,255,255,0.7);
-            color: rgba(0,0,0,0.5);
-        }
-        body.light-mode .toolbar-btn:hover {
-            background: rgba(255,255,255,0.9);
-            color: #1a1a2e;
-            border-color: rgba(0,0,0,0.2);
-        }
+        
 
         
 
-        body.light-mode .glare { mix-blend-mode: soft-light; }
+        /* Light Mode Hover States (Overrides dark gradients) */
+        
 
-        body.light-mode .position-circle {
-            background: rgba(0,0,0,0.08);
-            border-color: rgba(0,0,0,0.1);
-        }
-        body.light-mode .position-circle img {
-            filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
-        }
+        
+
+        
+
+        
+
+        
+        
+        
+
+        
+
+        
+        
+        
+
+        
+
+        
+
+        
+        
+        
+
+        
+
+        
+        
+        
+
+        
+        
+
+        
+
+        
+
+        
+        
 
         /* Fix gold/silver/bronze text visibility on light background */
-        body.light-mode .position-badge.gold { border-color: rgba(218,165,32,0.8); background: rgba(218,165,32,0.15); color: #b8860b; font-weight: bold; }
-        body.light-mode .position-badge.silver { border-color: rgba(128,128,128,0.8); background: rgba(128,128,128,0.15); color: #555555; font-weight: bold; }
-        body.light-mode .position-badge.bronze { border-color: rgba(160,82,45,0.8); background: rgba(160,82,45,0.15); color: #8b4513; font-weight: bold; }
+        
+        
+        
 
-        body.light-mode .site-title {
-            background: linear-gradient(180deg, #1a1a2e 0%, #444 50%, #666 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
+        
 
-        body.light-mode .header { border-bottom-color: rgba(0,0,0,0.1); }
-        body.light-mode .rules-btn { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: #555; }
-        body.light-mode .rules-btn:hover { background: rgba(0,0,0,0.1); color: #1a1a2e; }
+        
+        
+        
 
         /* Remove black JPG background globally using SVG Chroma Key filter! ("cắt nền" 100% success for both Dark and Light mode) */
-        img[style*="mix-blend-mode: screen"],
-        .tier-item img,
-        .title img,
-        .tab img {
-            mix-blend-mode: normal !important;
-            filter: url(#unblack) drop-shadow(0 2px 4px rgba(0,0,0,0.4)) !important;
-            border-radius: 0 !important;
-        }
+        
 
         /* Remove icon background circles globally as requested, while keeping padding/border width to maintain perfect alignment ("ngay hàng") */
         .tier-item img {
@@ -476,9 +386,7 @@
         }
         
         /* Make empty rings visible in Light Mode */
-        body.light-mode .empty-icon-ring {
-            border-color: rgba(0, 0, 0, 0.15) !important;
-        }
+        
 
         @media (max-width: 768px) {
             * { cursor: auto !important; }
@@ -2495,17 +2403,7 @@
     </script>
 </head>
 <body>
-    <!-- SVG Filter for Light Mode JPG transparency -->
-    <svg width="0" height="0" style="position: absolute; pointer-events: none;">
-        <filter id="unblack">
-            <feColorMatrix type="matrix" values="
-                1 0 0 0 0
-                0 1 0 0 0
-                0 0 1 0 0
-                7 7 7 0 0
-            " />
-        </filter>
-    </svg>
+    
     <!-- Custom Cursor Canvas -->
     <canvas id="cursorCanvas"></canvas>
     <!-- Custom Cursor DOM Elements -->
@@ -2514,23 +2412,7 @@
 
     <!-- Toolbar Buttons -->
     <div class="toolbar-btns">
-        <!-- Light/Dark Mode Toggle -->
-        <button id="themeToggle" class="toolbar-btn" title="Light / Dark Mode">
-            <svg id="themeIconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <svg id="themeIconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="display:none;">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-        </button>
+        
 
         <!-- Zen Mode Toggle (Hide UI) -->
         <button id="zenToggle" class="toolbar-btn" title="Zen Mode - Hide UI">
@@ -3870,21 +3752,7 @@
 
     <!-- Toolbar Toggle Scripts -->
     <script>
-    // Light/Dark Mode Toggle
-    document.getElementById('themeToggle').addEventListener('click', function() {
-        this.classList.toggle('active');
-        document.body.classList.toggle('light-mode');
-        
-        const moonIcon = document.getElementById('themeIconMoon');
-        const sunIcon = document.getElementById('themeIconSun');
-        if (document.body.classList.contains('light-mode')) {
-            moonIcon.style.display = 'none';
-            sunIcon.style.display = 'block';
-        } else {
-            moonIcon.style.display = 'block';
-            sunIcon.style.display = 'none';
-        }
-    });
+    
 
     // Zen Mode Toggle
     document.getElementById('zenToggle').addEventListener('click', function() {
