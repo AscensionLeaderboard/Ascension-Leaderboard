@@ -2545,6 +2545,15 @@
             
             document.addEventListener('click', (e) => {
                 dismissSplash();
+                
+                // Close audio settings panel if clicking outside of it
+                const audioPanel = document.getElementById('audioSettingsPanel');
+                const audioBtn = document.getElementById('audioSettingsBtn');
+                if (audioPanel && !audioPanel.classList.contains('hidden')) {
+                    if (!audioPanel.contains(e.target) && (!audioBtn || !audioBtn.contains(e.target))) {
+                        audioPanel.classList.add('hidden');
+                    }
+                }
                 const target = e.target.closest('.player-row, .player-card, .board-player-card, .tab, .rules-btn, .tier-item, .modal-close, .modal-tier-icon, #intro-splash, .close-history-btn, .color-btn, .cursor-toggle label, #cursorStyle');
                 if (target) {
                     window.uiAudio.init();
